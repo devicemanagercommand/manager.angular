@@ -1,0 +1,153 @@
+//https: //stackoverflow.com/questions/42786192/angular-2-material-dynamic-themes
+@use '@angular/material' as mat;
+@import "styles.variables.scss";
+
+// Define a mixin that accepts a theme and outputs the color styles for the component.
+@mixin expansion-panel-theme($theme) {
+  // Extract whichever individual palettes you need from the theme.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  // Use mat-color to extract individual colors from a palette as necessary.
+  .mat-expansion-panel {
+    background-color: #222222;
+    border-color: mat.get-color-from-palette($accent, A400);
+    color: silver;
+    margin-bottom: 1px;
+  }
+
+  .mat-tab-labels {
+    background-color: $background-accent;
+  }
+}
+
+@mixin dialog-theme($theme) {
+  // Extract whichever individual palettes you need from the theme.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  // Use mat-color to extract individual colors from a palette as necessary.
+  .mat-dialog-title {
+    background-color: $background-accent;
+    border-color: mat.get-color-from-palette($accent, A400);
+    color: silver;
+    padding: 5px !important;
+    margin: 0px 0px 0px 0px !important;
+  }
+
+  .mat-dialog-actions {
+    background-color: $background-accent !important;
+    margin-bottom: 0px !important;
+    padding: 5px !important;
+  }
+
+  .mat-dialog-content {
+    background-color: $background-primary;
+    padding: 20px 50px !important;
+    color: silver !important;
+  }
+
+  .mat-dialog-container {
+    background-color: $background-primary;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  //Togle button
+  .mat-button-toggle {
+    /*background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);*/
+  }
+
+  .mat-button-toggle-checked {
+    /*background-color: mat-color($primary);*/
+    /*color: mat-color($primary); doesn-t work*/
+  }
+
+  .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    line-height: 30px !important;
+  }
+  //progress-bar
+  .mat-progress-bar-buffer {
+    background: $background-primary !important;
+  }
+  //Snacks
+  .mat-snack-bar-container {
+    background-color: $background-accent !important;
+    color: $font-color-default;
+  }
+
+  .snack-error {
+    button {
+      color: mat.get-color-from-palette($warn)
+    }
+  }
+
+  .service-snack-error {
+    margin-top: 4em !important;
+
+    span {
+      color: mat.get-color-from-palette($warn)
+    }
+
+    button {
+      color: $font-color-default;
+    }
+  }
+
+  .snack-success {
+    button {
+      color: mat.get-color-from-palette($primary)
+    }
+  }
+  //Forms
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding-top: .35em !important;
+  }
+
+  .mat-form-field-infix {
+    /*background-color: $background-accent !important;*/
+    padding-bottom: .55em !important;
+    width: 100% !important;
+  }
+}
+
+@include mat.all-component-themes($my-app-theme);
+@include expansion-panel-theme($my-app-theme);
+@include dialog-theme($my-app-theme);
+
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+  color: mat.get-color-from-palette($primary);
+}
+
+.material-icons.md-light.md-inactive {
+  color: rgb(128, 128, 128);
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+
+.material-icons.md-24 {
+  font-size: 24px;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+//Forms
+mat-form-field {
+  width: 100%;
+}
+
+mat-input-element {
+  padding: 3px 0px;
+}

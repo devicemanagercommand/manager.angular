@@ -1,0 +1,125 @@
+<form #methodStepForm="ngForm">
+  {{this.commandService.model?.newCustomControl?.name}}
+  <mat-divider></mat-divider>
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab *ngFor="let co of this.commandService?.model?.newCustomControl.commandOptions;let i = index"
+             [label]="co.name">
+
+      <mat-form-field floatLabel="never" appearance="fill">
+        <mat-label>{{rs.Resource('LabelSelect') + ' ' + rs.Resource('LabelMethod') + ' ' +  rs.Resource('LabelTo') + ' ' + rs.Resource('LabelAdd')}}</mat-label>
+        <mat-select [placeholder]="rs.Resource('LabelSelect') + ' ' + rs.Resource('LabelMethod') + ' ' +  rs.Resource('LabelTo') + ' ' + rs.Resource('LabelAdd')"
+                    name="method"
+                    [(ngModel)]="commandService?.model?.selectedMethods[i]">
+          <mat-option *ngFor="let method of this.commandService?.model?.selectedCommand?.methods"
+                      [value]="method">
+            {{ method.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngIf="commandService?.model?.selectedMethods[i]?.properties?.length > 0">
+
+        <div *ngFor="let parameter of commandService?.model?.selectedMethods[i]?.properties">
+
+          <!-- Should never show because CommandInvokers Only acept objects  -->
+          <!--<mat-form-field floatLabel="always" *ngIf="parameter.commandPropertyType.name != 'object'">
+          <input matInput [placeholder]="Option" required
+                 [name]="'option' + parameter.id"
+                 [value]="parameter.value"
+                 [(ngModel)]="parameter.value">
+          </mat-form-field>-->
+          <!-- Properties of object parameter -->
+          <div *ngIf="parameter.commandPropertyType.name == 'object'">
+            <mat-grid-list cols="2" rowHeight="70px" [gutterSize]="'5px'">
+              <mat-grid-tile *ngFor="let property of parameter.commandProperties">
+                <!-- If not is an object and boolean type -->
+                <mat-form-field *ngIf="property.commandPropertyType.name != 'object'
+                                    && property.commandPropertyType.name != 'boolean'"
+                                floatLabel="always"
+                                appearance="fill">
+                  <mat-label>{{property.name}}</mat-label>
+                  <input matInput
+                         [placeholder]="property.name"
+                         [type]="property.commandPropertyType.name == 'string' ? 'text': 'number'"
+                         [name]="property.id"
+                         [value]="property.value"
+                         [(ngModel)]="property.value"
+                         [pattern]="property.regexValidation"
+                         [customMax]="(property.commandPropertyType.name == 'number' && property.maxLength != null)? property.maxLength : null"
+                         [customMin]="(property.commandPropertyType.name == 'number' && property.minLength != null)? property.minLength : null"
+                         [maxLength]="(property.commandPropertyType.name == 'string' && property.maxLength != null)? property.maxLength : null"
+                         [minLength]="(property.commandPropertyType.name == 'string' && property.minLength != null)? property.minLength : null" />
+
+                  <mat-hint>
+                    {{property.help}}
+                  </mat-hint>
+                </mat-form-field>
+                <!-- Si es de un tipo boleano -->
+                <mat-checkbox *ngIf="property.commandPropertyType.name != 'object'
+                                  && property.commandPropertyType.name == 'boolean'"
+                              [name]="property.name+property.id"
+                              [value]="(!property.value || property.value == ''? false: true)"
+                              [(ngModel)]="property.value">
+                  {{ property.name }}
+                </mat-checkbox>
+
+              </mat-grid-tile>
+            </mat-grid-list>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button mat-button color="primary"
+                (click)="addAction($event,commandService?.model?.selectedMethods[i],i)"
+                [disabled]="!(commandService?.model?.selectedMethods[i]?.properties?.length != 0)
+                         || !canAddAction(commandService?.model?.selectedMethods[i])">
+          {{rs.Resource('LabelAdd')}}
+          &nbsp;<mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+
+      <!--table with actions added-->
+      <div *ngFor="let action of this.commandService.model.newCustomControl.commandOptions[i].commandActions;let actionIndex = index">
+        <table style="width:100%">
+          <tr>
+            <td style="width:10%">{{actionIndex + 1}}</td>
+            <td style="width:30%">{{action.commandMethod.name}}</td>
+            <td style="width:50%">
+              <table>
+                <tr *ngFor="let value of action.commandActionValues">
+                  <td>{{value.commandProperty.name}}</td>
+                  <td>:&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>{{value.value}}</td>
+                </tr>
+              </table>
+            </td>
+            <td style="width:10%">
+              <button mat-button (click)="removeAction($event, this.commandService.model.newCustomControl.commandOptions[i], action)">
+                <mat-icon color="warning">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </table>
+        <mat-divider></mat-divider>
+      </div>
+      <!--<td style="padding:0px 5px;" *ngIf="property.commandPropertyType.name != 'object'">
+
+        <button mat-button (click)="removeOption()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>-->
+    </mat-tab>
+  </mat-tab-group>
+
+  <div align="end">
+    <button mat-button matStepperPrevious>{{rs.Resource('LabelPrev')}}</button>
+    <button mat-raised-button
+            matStepperNext
+            color="primary"
+            [disabled]="!methodStepForm.form.valid || !this.commandService.methodStepIsValid">
+      {{rs.Resource('LabelNext')}}
+    </button>
+  </div>
+</form>

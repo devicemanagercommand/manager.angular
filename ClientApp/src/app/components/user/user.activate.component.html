@@ -1,0 +1,11 @@
+<div *ngIf="result == 'success'">
+  <div class="alert-success alert">
+    {{rs.Resource('SuccessUserActivated')}}
+  </div>
+</div>
+<div *ngIf="result == 'invalid'">
+  <br />
+  <div class="alert-danger alert">
+    {{rs.Resource('ErrorGeneric')}}
+  </div>
+</div>

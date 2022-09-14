@@ -1,0 +1,108 @@
+<div class="navbar navbar-expand-lg navbar-dark bg-faded" role="navigation">
+  <div class="navbar-header">
+    <device-header-nav-menu [device]="this?.model?.device"
+                            [rootClass]="'d-block d-lg-none'">
+    </device-header-nav-menu>
+
+  </div>
+  <div class="navbar-collapse collapse" id="navbarNavDropdown">
+    <ul class="nav navbar-nav navbar-left"></ul>
+    <ul class="nav navbar-nav navbar-center">
+      <li>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+      <li>
+        <device-header-nav-menu [device]="this?.model?.device"
+                                [banner]="rs.Resource('LabelDeviceInfo')"
+                                [rootClass]="'d-none d-lg-block'"
+                                [showBackButton]="false">
+        </device-header-nav-menu>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!--<dmc-progress-bar  mode="indeterminate"></dmc-progress-bar>-->
+<dmc-module-title [rootClass]="'d-block d-lg-none'"
+                  [device]="this?.model?.device"
+                  [banner]="rs.Resource('LabelDeviceInfo')">
+</dmc-module-title>
+
+<alert-panel [input]="alert"></alert-panel>
+
+<div class="tab-content" *ngIf="model">
+  <mat-tab-group>
+    <mat-tab label="{{peripherycType?.name}}" *ngFor="let peripherycType of model.peripherycTypes; trackBy: trackById" id="{{peripherycType?.name}}">
+
+      <mat-accordion *ngFor="let peripheryc of peripherycType?.peripherycs; trackBy: trackById">
+        <mat-expansion-panel class="c-panel c-panel-default" [expanded]="peripheryc.expanded">
+          <!--[@peripherycState]="peripheryc.state"-->
+          <!-- Panel Heading -->
+          <!--{peripheryc | json}-->
+          <mat-expansion-panel-header>
+            {{peripheryc?.name}}
+            <div class="inline peripheryc-state">
+              <div class="inline" *ngIf="peripheryc.state == 1">&nbsp;<mat-icon matTooltip="{{rs.Resource('LabelNew')}} {{peripheryc.lastUpdate | date: 'medium' }}" placement="bottom">new_releases</mat-icon></div>
+              <div class="inline" *ngIf="peripheryc.state == 2">&nbsp;<mat-icon matTooltip="{{rs.Resource('LabelUpdated')}} {{peripheryc.lastUpdate | date: 'medium' }}" placement="bottom">info_outline</mat-icon></div>
+              <div class="inline" *ngIf="peripheryc.state == 3">&nbsp;<mat-icon matTooltip="{{rs.Resource('LabelRemove')}} '{{peripheryc?.lastUpdate | date: 'medium'}}'" color="warn" placement="bottom">remove_circle_outline</mat-icon></div>
+              <div class="inline" *ngIf="peripheryc.state == 4">&nbsp;</div>
+            </div>
+          </mat-expansion-panel-header>
+          <!-- Panel Body -->
+          <div accordion-body>
+            <div class="container">
+              <div>
+                <ng-container *ngFor="let peripherycValue of peripheryc?.peripherycValues">
+
+                  <!--[@peripherycState]="peripheryc.state"-->
+                  <!--{ peripherycValue | json }-->
+                  <div class="row">
+                    <div class="col-9 col-md-3 col-lg-3 peripheric-field-name"><span>{{peripherycValue?.fieldName}}</span></div>
+                    <div class="col-3 col-md-1 peripheric-state right">
+                      <div class="inline" *ngIf="peripherycValue.state == 1">&nbsp;<mat-icon matTooltip="{{rs.Resource('LabelNew')}} {{ peripherycValue.lastUpdate | date: 'medium'}}" placement="bottom">new_releases</mat-icon></div>
+                      <div class="inline" *ngIf="peripherycValue.state == 2">&nbsp;<mat-icon matTooltip="{{rs.Resource('LabelUpdated')}} {{peripherycValue.lastUpdate | date: 'medium'}}" placement="bottom">info_outline</mat-icon></div>
+                      <div class="inline" *ngIf="peripherycValue.state == 3">
+                        <a *ngIf="model && model?.device?.isRole('info_del')"  (click)="confirmRemovePeripheralValue(peripherycValue)" class="cursor-pointer" matTooltip="{{rs.Resource('LabelRemove')}} '{{peripherycValue?.fieldName}}'" placement="bottom">
+                          <mat-icon color="warn">remove_circle_outline</mat-icon>
+                        </a>
+                      </div>
+                      <div class="inline" *ngIf="peripherycValue.state == 4">&nbsp;</div>
+                    </div>
+                    <div class="col-12 col-md-7 col-lg-7 peripheric-value "><span>{{peripherycValue?.value}}</span></div>
+                    <div class="gradient-border"></div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="c-panel-footer right">
+            <div [hidden]="peripheryc.state != 3">
+              <button *ngIf="model && model?.device?.isRole('info_del')" color="warn" mat-raised-button (click)="confirmRemovePeripheral(peripheryc)" class="cursor-pointer" matTooltip="{{ rs.Resource('LabelRemove') }} '{{ peripheryc?.name }}'" placement="top">
+                <mat-icon>remove_circle_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<dmc-modal #peripheralModal
+           (success)="removePeripheral($event)"
+           [id]="'removePeripheralFromDeviceInfo'"
+           [header]=" rs.Resource('LabelRemove')"
+           [successButtonName]=" rs.Resource('LabelYes') "
+           [cancelButtonName]=" rs.Resource('LabelNo') ">
+</dmc-modal>
+
+<dmc-modal #peripheralValueModal
+           (success)="removePeripheralValue($event)"
+           [id]="'removePeirpheralValueFromDeviceInfo'"
+           [header]=" rs.Resource('LabelRemove')"
+           [successButtonName]=" rs.Resource('LabelYes') "
+           [cancelButtonName]=" rs.Resource('LabelNo') ">
+</dmc-modal>
+

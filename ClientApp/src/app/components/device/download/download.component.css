@@ -1,0 +1,19 @@
+
+:host {
+  background-color: #1e1e1e;
+}
+
+@media screen and (max-width: 1400px) {
+  .horizontal-scroll {
+    overflow-y: auto;
+    background-color: #353535;
+  }
+}
+
+pre {
+  background-color: transparent;
+  border-radius: unset;
+  text-align: left;
+  border: unset;
+  color: silver;
+}

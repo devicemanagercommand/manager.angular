@@ -1,0 +1,70 @@
+ <!-- Shared device -->
+<div class="row">
+  <div class="col-12 nopadding">
+    <alert-panel [input]="sharedAlert"></alert-panel>
+  </div>
+</div>
+<div [hidden]="!this.isLoading" class="progress-bar">
+  <mat-progress-bar mode="query"></mat-progress-bar>
+</div>
+<form #shareForm="ngForm">
+  <div class="row v-padding">
+    <div class="col-12 col-lg-4 accent align-self-center">
+      <span>
+        {{rs.Resource('LabelShare')}}
+      </span>
+      <i class="material-icons accent" [matTooltip]="rs.Resource('InfoShareDevice')">
+        <mat-icon>info</mat-icon>
+      </i>
+    </div>
+    <div class="col-9 col-lg-6 align-self-center">
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>{{rs.Resource('LabelMail')}}</mat-label>
+        <input #mail matInput name="mail"
+               ngModel
+               [(ngModel)]="model.mail"
+               placeholder="{{rs.Resource('LabelMail')}}"
+               required
+               email>
+        <mat-hint [hidden]="shareForm.valid || shareForm.pristine || model.mail == ''" class="warning">{{rs.Resource('WarnInvalidMail')}}</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="col-3 col-lg-2 align-self-center">
+      <button [disabled]="!shareForm.valid || !this.model.enableShare" mat-raised-button (click)="share()">{{rs.Resource("LabelShare")}}</button>
+    </div>
+
+  </div>
+</form>
+
+
+<br />
+<div class="row v-padding">
+  <div class="col-12">
+
+    <table *ngIf="this.model.sharedUsers && this.model.sharedUsers.length > 0" mat-table [dataSource]="this.model.sharedUsersDataSource" matSort class="shared-table mat-elevation-z8">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ rs.Resource('LabelSharedWith') }} </th>
+        <td mat-cell *matCellDef="let element"> {{element.user}} </td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action" class="action-column">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element" class="action-link">
+          <!--<a (click)="action('Delete',element)"></a>-->
+          <button mat-button (click)="action('Delete', element)">
+            <mat-icon color="warning">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+</div>
+

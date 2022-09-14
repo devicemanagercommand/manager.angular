@@ -1,0 +1,34 @@
+@use '@angular/material' as mat;
+@import '../../../styles.scss';
+
+li .glyphicon {
+  margin-right: 10px;
+}
+
+/*
+li.link-active a,
+li.link-active a:hover,
+li.link-active a:focus {
+    border-bottom: 1px solid #4189C7;
+    color: white;
+}*/
+
+.navbar-left li a {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.title {
+  font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;
+  color: mat.get-color-from-palette($primary);
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-top: 5px;
+}
+
+.module-title {
+  font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;
+  color: mat.get-color-from-palette($accent);
+  font-size: 1.5em;
+  padding-top: 5px;
+}

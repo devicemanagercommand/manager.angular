@@ -1,0 +1,135 @@
+//https: //stackoverflow.com/questions/42786192/angular-2-material-dynamic-themes
+@use '@angular/material' as mat;
+
+@import 'styles.material.scss';
+@import 'styles.boostrap.scss';
+
+html {
+  background-color: $background-primary !important;
+  color: silver !important;
+}
+
+body {
+  color: silver !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.a-button {
+  cursor: pointer;
+}
+
+.full-width {
+  width: 100%;
+}
+
+//Colors used in process component
+.warning {
+  color: $warn-color;
+}
+
+.info {
+  color: $accent-color;
+}
+
+.danger {
+  color: $warn-color;
+}
+
+.sucess {
+  color: $primary-color;
+}
+
+h4 {
+  text-align: center;
+}
+
+.center{
+    text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.left {
+  text-align: left;
+}
+
+.float-right {
+  float: right;
+}
+
+@media (max-width: 766px) {
+  .xs-full-width {
+    width: 100%;
+    height: 3.2em;
+  }
+}
+
+.Hide {
+  display: none !important;
+}
+
+.Show {
+  display: block !important;
+}
+
+button:focus, button:active:focus, button.active:focus,
+button.focus, button:active.focus, button.active.focus {
+  outline: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.dmc-scrollbar {
+  --scrollbar-color: transparent;
+  --scrollbar-container-color: transparent;
+  --scrollbar-thumb-color: #353535; /*doens't work : S -> $background-accent)*/
+  --scrollbar-thumb-hover-color: transparent;
+  --scrollbar-border-radius: 4px;
+  --scrollbar-size: 5px;
+  --scroll-view-margin: 0;
+  --scroll-view-color: transparent;
+}
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+// only show recaptcha badge on needed pages
+body.recaptcha {
+  .grecaptcha-badge {
+    visibility: visible;
+  }
+}
+
+.title {
+  font-size: 1.2em;
+  color: mat.get-color-from-palette($accent);
+  padding-left: 0.5em;
+  padding-bottom: 1em;
+}
+
+.dmc-banner {
+  font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;
+  /*background: linear-gradient(to top, #5CB85C 25%, #176217 50%,#5CB85C 70%);*/
+  /*-webkit-background-clip: text;*/
+  color: mat.get-color-from-palette($primary);
+  /*background-clip: text;*/
+  /*-webkit-text-fill-color: transparent;*/
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  z-index: 1000;
+  margin-top: -0.1em;
+}
+
+.dmc-banner:hover {
+  text-decoration: none;
+  color: $background-primary;
+}

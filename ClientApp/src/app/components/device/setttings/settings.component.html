@@ -1,0 +1,56 @@
+
+<div class="navbar navbar-expand-lg navbar-dark bg-faded" role="navigation">
+  <device-header-nav-menu [rootClass]="'d-block d-lg-none'"
+                          [showMenuButton]="false">
+  </device-header-nav-menu>
+
+  <div class="navbar-collapse collapse" id="navbarNavDropdown">
+    <ul class="nav navbar-nav navbar-left">
+      <li>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+      <li>
+        <device-header-nav-menu [device]="this?.model?.device"
+                                [banner]="rs.Resource('LabelConfiguration')"
+                                [rootClass]="'d-none d-lg-block'"
+                                [showBackButton]="false"
+                                [showMenuButton]="false">
+        </device-header-nav-menu>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div [hidden]="!this.isLoading" class="progress-bar">
+  <mat-progress-bar mode="query"></mat-progress-bar>
+</div>
+
+<dmc-module-title [tooltipBanner]="rs.Resource('LabelConfiguration')"
+                  [device]="this?.model?.device"
+                  [banner]="rs.Resource('LabelConfiguration')"
+                  [rootClass]="'d-block d-lg-none'">
+</dmc-module-title>
+
+<div class="device-settings">
+  <div *ngIf="this.model && model?.device?.isRole('conf_view')" class="container">
+
+    <dmc-shared [model]="this.model"></dmc-shared>
+
+    <br />
+
+    <div class="gradient-border"></div>
+
+    <!-- Remove device -->
+    <div class="row v-padding">
+      <div class="col-12">
+
+
+        <div class="center">
+          <button mat-raised-button color="warn" (click)="confirmDelete()">{{rs.Resource("LabelDelete")}}: "{{model?.device?.description}}"</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

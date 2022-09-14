@@ -1,0 +1,30 @@
+@import '../../../../styles.scss';
+
+
+.card {
+  width: 17em;
+  height: 100%;
+  border: 1px solid $background-accent;
+  margin: auto;
+}
+
+.card-content {
+  text-align: center;
+  padding: 5px;
+}
+
+.card-title {
+  background-color: $background-accent;
+  height: 40px;
+  padding: 0px 0.25em;
+}
+
+.card-title td {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.ccc-progress{
+    height: 1em;
+}
+

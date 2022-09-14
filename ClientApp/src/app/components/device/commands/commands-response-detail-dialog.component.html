@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{rs.Resource("LabelDetail")}}</h1>
+<mat-dialog-content>
+  <pre #terminal *ngIf="model.lines != null"><code><ng-container *ngFor="let line of model.lines"><span class="{{line.typeClass}}">{{line.line}}</span><br /></ng-container></code> </pre>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>{{rs.Resource("LabelClose")}}</button>
+</mat-dialog-actions>

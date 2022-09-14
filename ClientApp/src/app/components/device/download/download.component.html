@@ -1,0 +1,92 @@
+<div class="navbar navbar-expand-lg" role="navigation">
+  <!--[banner]="rs.Resource('LabelDownload')"-->
+
+  <device-header-nav-menu [rootClass]="'d-block d-lg-none'">
+  </device-header-nav-menu>
+  <div class="navbar-collapse collapse" id="navbarNavDropdown">
+    <ul class="nav navbar-nav navbar-left"></ul>
+    <ul class="nav navbar-nav navbar-center">
+      <li>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+      <li>
+        <device-header-nav-menu [banner]="rs.Resource('LabelDownload')"
+                                [rootClass]="'d-none d-lg-block'"
+                                [showBackButton]="false">
+        </device-header-nav-menu>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!--<mat-tab-group>
+  <mat-tab label="Windows">
+    <div class="container center">
+      <h5 class="panel-heading">{{rs.Resource('InfoDownload')}}</h5>
+      <div class="panel-body">
+        <a href="api/helper/download/window">
+          &nbsp;<img height="100" src="/content/images/OsWindow96x96.png" />
+        </a>
+      </div>
+      <h5 class="panel-heading">{{ rs.Resource('InfoRequirement') }}</h5>
+      <div class="panel-body">
+        <pre>{{rs.Resource('InfoWindowsRequirement')}}</pre>
+      </div>
+
+    </div>
+  </mat-tab>
+  <mat-tab label="Linux">
+    <div class="container center">
+      <h5 class="panel-heading">{{rs.Resource('InfoDownload')}}</h5>
+      <div class="panel-body">
+        <a href="api/helper/download/installer.sh">
+          <img height="100" src="/content/images/linux-icon.png" />
+        </a>
+      </div>
+      <h5 class="panel-heading">{{ rs.Resource('InfoRequirement') }}</h5>
+      <div class="panel-body">
+        <pre [innerHTML]="rs.Resource('InfoLinuxRequirement')"></pre>
+      </div>
+    </div>
+  </mat-tab>-->
+<!--<mat-tab label="Raspberry">-->
+<div class="container center">
+  <h5 class="card-header">{{rs.Resource('InfoDownload')}}</h5>
+  <div class="card-body">
+    <a href="api/helper/download/installer.sh">
+      <img height="100" src="../content/images/raspberry.png" />
+    </a>
+  </div>
+  <h5 class="card-header">{{ rs.Resource('InfoRequirement') }}</h5>
+  <div class="card-body">
+    <pre [innerHTML]="rs.Resource('InfoLinuxRaspberryRequirement')"></pre>
+
+    <!--{{rs.Resource('InfoLinuxRaspberryRequirement')}}-->
+  </div>
+
+  <h5 class="card-header">{{ rs.Resource('LabelInstallationSteps') }}</h5>
+  <div class="card-body">
+    <div [innerHTML]="rs.Resource('InfoLinuxInstallationSteps')"></div>
+  </div>
+  <div class="full-width right">
+    <button mat-button matTooltip="{{ rs.Resource('LabelCopy') }}" (click)="copyText()">
+      <i class="material-icons md-24">content_copy</i>
+    </button>
+  </div>
+  <div class="card-body">
+<pre class="code">
+{{this.linuxCommand}}
+</pre>
+  </div>
+
+  <!--<h5 class="panel-heading">{{ rs.Resource('LabelHash') }}</h5>
+  <div class="panel-body">
+    <p>{{ rs.Resource('InfoHash') }}</p>
+    <div class="horizontal-scroll">
+      <p>{{helper.getHash('Linux')}}</p>
+    </div>
+  </div>-->
+</div>
+<!--</mat-tab>-->
+<!--</mat-tab-group>-->

@@ -1,0 +1,77 @@
+@use '@angular/material' as mat;
+@import 'src/styles.variables.scss';
+
+$row-heigth: 5em;
+$v-padding: 1.2em;
+
+:host {
+  background-color: $background-primary;
+}
+
+
+.navbar-inverse {
+  border: unset;
+}
+
+.navbar-collapse {
+}
+
+.navbar {
+  background-color: $background-accent;
+  min-height: 36px;
+}
+
+.title {
+  font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;
+  color: mat.get-color-from-palette($primary);
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-top: 5px;
+}
+
+.module-title {
+  font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;
+  color: mat.get-color-from-palette($accent);
+  font-size: 1.5em;
+  padding-top: 5px;
+}
+
+.navbar-nav.navbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translatex(-50%);
+}
+
+.navbar-nav.navbar-right {
+  margin-right: unset;
+}
+
+.navbar-nav.navbar-left {
+  margin-left: unset;
+}
+
+.gradient-border {
+  width: 100%;
+  height: 1px;
+  background-image: linear-gradient(to right, black -25%, gray 50%, black 125%);
+}
+
+.v-padding {
+  padding: $v-padding 0;
+}
+
+.accent {
+  color: $accent-color;
+}
+
+::ng-deep .device-settings .mat-form-field-wrapper {
+  margin-bottom: -1.25em;
+}
+
+button {
+  overflow-x: hidden !important;
+}
+
+button {
+  white-space: pre-wrap !important;
+}

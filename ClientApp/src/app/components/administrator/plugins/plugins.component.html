@@ -1,0 +1,9 @@
+
+<input #file type="file" multiple />
+
+<button (click)="upload(file.files)">{{rs.Resource("LabelUpload")}}</button>
+<br />
+
+<mat-progress-bar mode="indeterminate" [hidden]="!this.isLoading" value="{{progress}}"></mat-progress-bar>
+
+<alert-panel [input]="alertPanel"></alert-panel>

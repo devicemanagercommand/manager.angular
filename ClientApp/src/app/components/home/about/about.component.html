@@ -1,0 +1,69 @@
+<div class="about center">
+  <carousel [interval]=12000>
+    <slide class="logo center">
+      <img class="img-responsive center-block" src="/content/images/logo.png" />
+      <div class="carousel-caption">
+        <p>
+          {{ rs.Resource('InfoAbout') }}
+        </p>
+      </div>
+    </slide>
+    <slide class="info center">
+      <img class="img-responsive center-block" src="/content/images/raspberrypi-hardware.png" />
+      <div class="carousel-caption">
+        <h3>{{ rs.Resource('LabelRaspberry') }}</h3>
+        <p>
+          {{ rs.Resource('InfoAboutRaspberry') }}
+        </p>
+      </div>
+    </slide>
+    <slide class="info center">
+      <img class="img-responsive center-block" src="/content/images/ccc-main.png" />
+      <div class="carousel-caption">
+        <h3>{{ rs.Resource('LabelCCC') }}</h3>
+        <p>
+          {{ rs.Resource('InfoAboutCCC') }}
+        </p>
+      </div>
+    </slide>
+    <slide class="terminal center">
+      <img class="img-responsive center-block" src="/content/images/terminal-init-help.png" />
+      <div class="carousel-caption">
+        <h3>{{ rs.Resource('LabelTerminal') }}</h3>
+        <p>
+          {{ rs.Resource('InfoTerminal') }}
+        </p>
+      </div>
+    </slide>
+    <slide class="info center">
+      <img class="img-responsive center-block" src="/content/images/device-info.png" />
+      <div class="carousel-caption">
+        <h3>{{ rs.Resource('LabelDeviceInfo') }}</h3>
+        <p>
+          {{ rs.Resource('InfoDeviceInfo') }}
+        </p>
+      </div>
+    </slide>
+
+  </carousel>
+
+  <div class="container get-started">
+    <div class="card card-default">
+      <div class="card-header"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;Get Started</div>
+      <div class="card-body center">
+        <div>
+          <pre class="text-left"><code [innerHTML]="rs.Resource('InfoGetStarted')"></code>
+</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-around">
+      <a href="https://play.google.com/store/apps/details?id=dmc.xsite" target="_blank" rel="external">
+        <img class="google-play-badge" src="/content/images/google-play-badge.png">
+      </a>
+    </div>
+  </div>
+
+
+</div>

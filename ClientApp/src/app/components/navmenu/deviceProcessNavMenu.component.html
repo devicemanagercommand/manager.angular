@@ -1,0 +1,28 @@
+<div class="">
+  <div class="navbar navbar-inverse second-navbar navbar-static-top">
+    <div class="navbar-header">
+      <device-header-nav-menu [device]=""
+                              [tooltipBanner]=""
+                              [banner]="">
+      </device-header-nav-menu>
+
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarNavDropdown">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="nav navbar-nav">
+        <li class="">
+          <a (click)="processOptions.open()">
+            <span class='glyphicon glyphicon-cog'></span>{{rs.Resource('LabelConfiguration')}} WTF
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<process-options #processOptions></process-options>
+

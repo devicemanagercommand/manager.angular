@@ -1,0 +1,54 @@
+@import 'src/styles.variables.scss';
+
+/********* Texto *********/
+.dinamic-logo .header-dmc-text {
+    display: inline-flex;
+    padding: 0 0.3em;
+    padding-top: 0.2em;
+    font-size: xx-large;
+    bottom: 0px;
+    position: relative;
+
+}
+
+.dinamic-logo .header-device-text {
+    color: darkseagreen;
+    font-family: sans-serif;
+}
+
+.dinamic-logo .header-manager-text {
+    color: darkseagreen;
+    font-family: sans-serif;
+}
+
+.dinamic-logo .header-command-text {
+    color: #63b01b;
+    font-family: sans-serif;
+}
+
+.dinamic-logo .header-gt-text {
+    color: #63b01b;
+    font-family: sans-serif;
+}
+
+.dinamic-logo .header-command-cursor {
+    color: yellowgreen;
+    animation: blink 7s infinite;
+    text-shadow: none none none none;
+    padding-left: 0.05em;
+    bottom:0px;
+}
+
+@keyframes blink {
+    0% {
+        color: #63b01b;
+    }
+
+    95% {
+        color: transparent;
+    }
+
+    100% {
+        color: #63b01b;
+    }
+}

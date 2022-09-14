@@ -1,0 +1,6 @@
+<div *ngIf="model != null" class="dmc-alert">
+  <div @verticalheight class="alert alert-{{model.typeName}} alert-dismissible" role="alert" dismisible="true">
+    <button type="button" class="close" data-dismiss="alert" (click)="closeAlert()">x</button>
+    {{model.message}}
+  </div>
+</div>

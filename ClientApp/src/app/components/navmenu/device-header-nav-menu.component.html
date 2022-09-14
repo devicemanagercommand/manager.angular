@@ -1,0 +1,13 @@
+<li class="{{rootClass}}" style="display:inline-block">
+  <span [hidden]="!showBackButton">
+    <button mat-button color="primary" matTooltip="{{rs.Resource('LabelBack')}}" placement="bottom" (click)="backHistory()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-button color="primary" matTooltip="{{rs.Resource('LabelRefresh')}}" placement="bottom" (click)="helper.refresh()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </span>
+  <span *ngIf="banner && banner != ''" class="module-title" matTooltip="{{tooltipBanner}}">{{banner}}:&nbsp;</span>
+  <span *ngIf="banner && banner != ''" class="title">{{device?.description}}</span>
+</li>
+

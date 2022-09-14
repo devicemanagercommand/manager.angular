@@ -1,0 +1,72 @@
+<!--<h1 mat-dialog-title>{{rs.Resource("LabelAdd")}}</h1>-->
+
+<div class="navbar navbar-expand-lg navbar-dark bg-faded" role="navigation">
+
+  <device-header-nav-menu [device]="this?.commandService?.model?.device"
+                          [rootClass]="'d-block d-lg-none'"
+                          (back)="cancel()"
+                          [canBackHistory]="false">
+  </device-header-nav-menu>
+
+  <!--<button type="button" class="navbar-toggler ml-auto" data-toggle="collapse" aria-expanded="true" data-target="#navbarNavDropdown">
+    <span class="navbar-toggler-icon"></span>
+  </button>-->
+
+  <div class="navbar-collapse collapse" id="navbarNavDropdown">
+    <ul class="nav navbar-nav navbar-left">
+      <li>
+        <button mat-button color="accent" (click)="cancel()">
+          {{rs.Resource("LabelCancel")}}&nbsp;<mat-icon>cancel</mat-icon>
+        </button>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-center"></ul>
+    <ul class="nav navbar-nav ml-auto">
+      <li>
+        <device-header-nav-menu [device]="this.commandService?.model?.device"
+                                [rootClass]="'d-none d-lg-block'"
+                                [tooltipBanner]="rs.Resource('TooltipCustomCommands')+'/'+rs.Resource('LabelAdd')"
+                                [banner]="rs.Resource('LabelCustomCommands')+'/'+rs.Resource('LabelAdd')"
+                                [showBackButton]="false">
+        </device-header-nav-menu>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<dmc-progress-bar [isLoading]="isLoading" mode="indeterminate"></dmc-progress-bar>
+
+<dmc-module-title [tooltipBanner]="rs.Resource('TooltipCustomCommands')+'/'+rs.Resource('LabelAdd')"
+                  [banner]="rs.Resource('LabelCustomCommands')+'/'+rs.Resource('LabelAdd')"
+                  [device]="this.commandService?.model?.device"
+                  [rootClass]="'d-block d-lg-none'">
+</dmc-module-title>
+
+<div class="container" *ngIf="this.commandService.model && this.commandService.model.controlStepForm">
+
+  <mat-horizontal-stepper labelPosition="bottom" [linear]="!this.commandService.model.newCustomControl.id || this.commandService.model.newCustomControl.id == 0" #stepper>
+
+    <mat-step [stepControl]="this.commandService.model.controlStepForm">
+      <br />
+      <ng-template matStepLabel>{{this.commandService?.model?.controlStepName}}</ng-template>
+      <step-control></step-control>
+    </mat-step>
+
+    <mat-step [stepControl]="this.commandService.model.commandStepForm">
+      <ng-template matStepLabel>{{this.commandService?.model?.commandStepName}}</ng-template>
+      <step-command></step-command>
+    </mat-step>
+
+    <mat-step [stepControl]="this.commandService.model.methodStepForm">
+      <ng-template matStepLabel>{{this.commandService?.model?.methodStepName}}</ng-template>
+      <step-method></step-method>
+    </mat-step>
+
+    <mat-step [stepControl]="this.commandService.model.summaryStepForm" class="center">
+      <ng-template matStepLabel>{{this.commandService?.model?.summaryStepName}}</ng-template>
+      <step-summary></step-summary>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+</div>
+

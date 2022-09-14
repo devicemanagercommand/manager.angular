@@ -1,0 +1,101 @@
+<div class="title">
+  {{rs.Resource('LabelRegister')}}
+</div>
+<div [hidden]="!submitted" class="text-center">
+  <alert-panel [input]="successAlertPanel"></alert-panel>
+  <br />
+  <button mat-raised-button [routerLink]="['/home']" color="primary">
+    {{rs.Resource('LabelGoHome')}}
+  </button>
+</div>
+<div class="sign-up container" [hidden]="submitted">
+  <form [formGroup]="registerForm" (ngSubmit)="submit($event)">
+    <!--User Name-->
+    <div>
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>{{rs.Resource('LabelName')}}</mat-label>
+        <input matInput formControlName="userName"
+               type="text"
+               placeholder="{{rs.Resource('LabelName')}}" />
+      </mat-form-field>
+      <div *ngIf="userName.invalid && userName.dirty" class="text-danger">
+        <p *ngIf="userName.hasError('required')">*</p>
+        <p *ngIf="userName.hasError('minlength')">{{rs.Resource('WarnMinLength6')}}</p>
+        <p *ngIf="userName.hasError('pattern')">{{rs.Resource('WarnInvalidUserName')}}</p>
+      </div>
+    </div>
+    <!--User-->
+    <div class="">
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>{{rs.Resource('LabelUser')}} </mat-label>
+        <input matInput formControlName="user"
+               type="text"
+               placeholder="{{rs.Resource('LabelUser')}}" />
+      </mat-form-field>
+      <div *ngIf="user.invalid && user.dirty" class="text-danger">
+        <p *ngIf="user.hasError('required')">*</p>
+        <p *ngIf="user.hasError('minlength')">{{rs.Resource('WarnMinLength6')}}</p>
+        <p *ngIf="user.hasError('pattern')">{{rs.Resource('WarnInvalidUser')}}</p>
+      </div>
+    </div>
+
+    <!-- Password -->
+
+    <div formGroupName="passwords">
+      <div class="">
+        <mat-form-field appearance="fill" class="example-full-width">
+          <mat-label>{{rs.Resource('LabelPassword')}}</mat-label>
+          <input matInput formControlName="password"
+                 type="password"
+                 placeholder="{{rs.Resource('LabelPassword')}}" />
+        </mat-form-field>
+        <div *ngIf="password.invalid && password.dirty" class="text-danger">
+          <p *ngIf="password.hasError('required')">*</p>
+          <p *ngIf="password.hasError('minlength')">{{rs.Resource('WarnMinLength6')}}</p>
+        </div>
+      </div>
+
+      <!-- Retype password -->
+      <div class="">
+        <mat-form-field appearance="fill" class="example-full-width">
+          <mat-label>{{rs.Resource('LabelRetypePassword')}}</mat-label>
+          <input matInput formControlName="retypePassword"
+                 type="password"
+                 placeholder="{{rs.Resource('LabelRetypePassword')}}" />
+        </mat-form-field>
+        <div *ngIf="passwords.invalid && retypePassword.dirty" class="text-danger">
+          <p *ngIf="retypePassword.hasError('required')">*</p>
+          <p *ngIf="retypePassword.hasError('minlength')">{{rs.Resource('WarnMinLength6')}}</p>
+          <p *ngIf="passwords.errors?.areEqual">{{rs.Resource('WarnInvalidPasswordConfirmation')}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Mail -->
+    <div class="">
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>{{rs.Resource('LabelMail')}} </mat-label>
+        <input matInput formControlName="mail"
+               type="text"
+               placeholder="{{rs.Resource('LabelMail')}}" />
+      </mat-form-field>
+      <div *ngIf="mail.invalid && mail.dirty" class="text-danger">
+        <p *ngIf="mail.hasError('required')">*</p>
+        <p *ngIf="mail.hasError('maxlength')">{{rs.Resource('WarnMaxLength250')}}</p>
+        <p *ngIf="mail.hasError('pattern')">{{rs.Resource('WarnInvalidMail')}}</p>
+      </div>
+    </div>
+
+    <!-- Captcha -->
+    <!--http://stackoverflow.com/questions/41165940/google-recaptcha-reset-in-typescript-->
+    <br />
+    <alert-panel [input]="errorAlertPanel"></alert-panel>
+    <div [hidden]="!this.isLoading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <br />
+    <p class="text-right">
+      <button mat-button (click)="helper.backHistory()" type="button">{{rs.Resource('LabelCancel')}}</button>
+      <button mat-raised-button [disabled]="registerForm.invalid || isLoading" color="primary" type="submit">{{rs.Resource('LabelCreate')}}</button>
+    </p>
+  </form>
+</div>

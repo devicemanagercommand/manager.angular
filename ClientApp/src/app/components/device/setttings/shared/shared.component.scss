@@ -1,0 +1,13 @@
+@import 'src/styles.variables.scss';
+
+.accent {
+  color: $accent-color;
+}
+
+.shared-table {
+  width: 100%;
+}
+
+.mat-column-action {
+  text-align: right !important;
+}

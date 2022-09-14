@@ -1,0 +1,55 @@
+@import '../../../../styles.scss';
+
+:host {
+  background-color: $background-primary;
+}
+
+.content {
+  margin-top: 5px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  border: 1px solid $background-accent;
+  text-align: center !important;
+}
+
+.card-content {
+  text-align: center !important;
+  padding: 5px;
+  background-color: $background-primary;
+}
+
+.card-title {
+  background-color: $background-accent;
+  height: 40px;
+  padding: 0px 0.3em;
+}
+
+.container {
+  margin-top: 2px;
+}
+
+.mat-button-toggle {
+  height: 30px;
+}
+
+.ccc-progress
+{
+    height: 1em;
+}
+
+
+.status-bar {
+  position: absolute;
+  box-sizing: border-box;
+  display: block;
+  bottom: 0px;
+  padding-left: 5px;
+  z-index: 200;
+  height: 23px;
+  width: 100%;
+  background-color: #353535;
+  color: silver;
+}

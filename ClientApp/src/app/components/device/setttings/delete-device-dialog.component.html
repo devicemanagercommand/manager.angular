@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>{{rs.Resource("LabelDelete")}}</h1>
+<mat-dialog-content class="center">
+  <div>{{rs.Resource("ConfirmDeleteDevice")}}</div>
+
+  <br />
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>{{rs.Resource('LabelDescription')}}</mat-label>
+    <input #labelDescription matInput placeholder="{{rs.Resource('LabelDescription')}}" value="">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>{{rs.Resource("LabelCancel")}}</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-raised-button color="warn" [disabled]="model?.device?.description?.toLowerCase() != labelDescription.value.toLowerCase()"
+          [mat-dialog-close]="model?.device?.description?.toLowerCase() == labelDescription.value.toLowerCase()">{{rs.Resource("LabelDelete")}}</button>
+</mat-dialog-actions>

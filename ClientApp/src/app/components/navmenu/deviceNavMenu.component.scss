@@ -1,0 +1,74 @@
+
+
+.navbar {
+  border-bottom: 1px solid #2d2d2e;
+}
+
+
+.ng-tns-c2-0 {
+}
+
+li .glyphicon {
+  margin-right: 10px;
+}
+
+li.link-active a,
+li.link-active a:hover,
+li.link-active a:focus {
+  border-bottom: 1px solid #4189C7;
+  color: white;
+}
+
+.center-navbar {
+  float: none;
+  text-align: center;
+}
+
+.center-navbar li {
+  float: none;
+  display: inline-block;
+}
+
+.second-navbar {
+  margin-bottom: 0px;
+}
+
+.navbar li a {
+  cursor: pointer;
+  cursor: hand;
+}
+
+
+@media (max-width: 767px) {
+  .first-navbar {
+    margin-bottom: unset;
+    height: unset;
+    min-height: unset;
+  }
+
+  .first-navbar .navbar-right {
+    float: none;
+    text-align: center;
+  }
+
+  .first-navbar .navbar-nav > li > a {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+  }
+
+  .first-navbar .navbar-right li {
+    float: none;
+  }
+
+  .first-navbar .btn-primary {
+    float: left;
+    display: block;
+    width: 50%;
+  }
+
+  .first-navbar .btn-success {
+    float: right;
+    display: block;
+    width: 50%;
+  }
+}

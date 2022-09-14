@@ -1,0 +1,74 @@
+<div class="title">
+  {{rs.Resource('LabelContact')}}
+</div>
+<div class="container">
+  <form #contactForm="ngForm">
+
+    <mat-form-field name="fontStyle" aria-label="Font Style" appearance="fill">
+      <mat-label>{{rs.Resource('LabelName')}}</mat-label>
+      <input matInput #user
+             autofocus
+             name="user"
+             id="user"
+             [(ngModel)]="model.name"
+             required
+             type="text"
+             placeholder="{{rs.Resource('LabelName')}}"
+             maxlength="250" />
+    </mat-form-field>
+
+    <mat-form-field name="fontStyle" aria-label="Font Style" appearance="fill">
+      <mat-label>{{rs.Resource('LabelMail')}}</mat-label>
+      <input matInput #mail
+             autofocus
+             name="mail"
+             id="mail"
+             [(ngModel)]="model.mail"
+             required
+             type="text"
+             email
+             placeholder="{{rs.Resource('LabelMail')}}"
+             maxlength="250" />
+    </mat-form-field>
+
+    <mat-form-field name="fontStyle" aria-label="Font Style" appearance="fill">
+      <mat-label>{{rs.Resource('LabelSubject')}}</mat-label>
+      <input matInput #subject
+             autofocus
+             name="subject"
+             id="subject"
+             [(ngModel)]="model.subject"
+             required
+             type="text"
+             maxlength="250"
+             placeholder="{{rs.Resource('LabelSubject')}}" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{rs.Resource('LabelMessage')}} (10-512)</mat-label>
+      <textarea matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+                name="message"
+                [(ngModel)]="model.message"
+                required
+                minlength="10"
+                maxlength="512"
+                rows="10"></textarea>
+    </mat-form-field>
+
+    <br />
+    <alert-panel [input]="alertPanel"></alert-panel>
+    <div [hidden]="!this.model.isLoading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <br />
+
+    <div class="text-right">
+      <button mat-button (click)="helper.backHistory()" type="button">{{rs.Resource('LabelCancel')}}</button>
+      <button [disabled]="!contactForm.valid || this.model.isLoading" mat-raised-button (click)="send()" color="primary" type="submit">{{rs.Resource("LabelSend")}}</button>
+    </div>
+  </form>
+</div>

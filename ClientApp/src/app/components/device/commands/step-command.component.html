@@ -1,0 +1,24 @@
+<form #commandStepForm="ngForm" *ngIf="this.commandService?.model?.newCustomControl?.commandControl">
+
+  <mat-radio-group class="example-radio-group" name="command"
+                   [(ngModel)]="this.commandService.model.selectedCommand"
+                   required>
+    <mat-radio-button color="accent" class="example-radio-button" *ngFor="let command of this.commandService.model.command"
+                      [value]="command"
+                      [checked]="selectedCommand?.id===command?.id"
+                      (change)="commandChange($event)">
+      {{command.name}}
+    </mat-radio-button>
+  </mat-radio-group>
+
+  <mat-divider></mat-divider>
+
+  {{this.commandService.model.selectedCommand?.name}}
+  <span [hidden]="!this.commandService.model?.selectedCommand"> : </span>
+  {{this.commandService.model.selectedCommand?.description}}
+
+  <div align="end">
+    <button mat-button matStepperPrevious >{{rs.Resource('LabelPrev')}}</button>
+    <button mat-raised-button matStepperNext color="primary" [disabled]="!commandStepForm.form.valid">{{rs.Resource('LabelNext')}}</button>
+  </div>
+</form>

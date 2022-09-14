@@ -1,0 +1,9 @@
+@import '../../../../styles.scss';
+
+:host {
+  background-color: $background-primary;
+}
+
+.container {
+  background-color: $background-primary !important;
+}

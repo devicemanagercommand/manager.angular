@@ -1,0 +1,21 @@
+@use '@angular/material' as mat;
+@import '../../../../styles.scss';
+
+.title {
+  font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;
+  color: mat.get-color-from-palette($primary);
+  font-size: 1.0em;
+  font-weight: bold;
+}
+
+.module-title {
+  font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif;
+  color: mat.get-color-from-palette($accent);
+  font-size: 1.0em;
+}
+
+
+.root-class {
+  text-align: right;
+  margin-right: 1em;
+}

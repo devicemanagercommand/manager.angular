@@ -1,0 +1,78 @@
+<h1 mat-dialog-title>{{rs.Resource('LabelConfiguration')}}</h1>
+<mat-dialog-content>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <label>{{rs.Resource('LabelProcess')}}</label>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8">
+
+      <!-- Dropdown to select a process -->
+      <mat-form-field>
+        <mat-label>{{rs.Resource('LabelProcess')}}</mat-label>
+        <mat-select placeholder="{{rs.Resource('LabelProcess')}}" [(ngModel)]="model.selectedProcess">
+          <mat-option *ngFor="let process of model?.processes" (click)="selectedItem_Click(process)" [value]="process">
+            {{process.fileName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <label>{{rs.Resource('LabelProcessImplementation')}}</label>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <!-- Radio to select how to pass arguments to process -->
+      <div *ngIf="model">
+        <mat-radio-group [(ngModel)]="model.selectedProcessImplementation">
+          <mat-radio-button *ngFor="let processImplementation of model?.processImplemenentations" color="primary"
+                            [name]="options"
+                            [value]="processImplementation"
+                            [checked]="model.selectedProcessImplementation.implementationTypeName===processImplementation.implementationTypeName">
+            {{processImplementation.implementationTypeName}}&nbsp;&nbsp;
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="col-lg-11 col-md-11 col-sm-11">
+
+      {{model?.selectedProcessImplementation?.implementationTypeDescription}}
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div *ngIf="model" class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <label>{{rs.Resource('LabelMaxLines')}}</label>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <mat-form-field class="full-width">
+        <input [name]="maxLines" matInput
+               placeholder="{{rs.Resource('LabelMaxLines')}}"
+               [value]="model.maxLines"
+               type="number">
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <!-- Wrap Lines -->
+  <mat-divider></mat-divider>
+  <div *ngIf="model" class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <label>{{rs.Resource('LabelWordWrap')}}</label>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <mat-checkbox [name]="wrapLines"
+                    [(ngModel)]="model.isWrappedLines"
+                    color="primary">
+      </mat-checkbox>
+    </div>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="cancelClick()">{{rs.Resource("LabelClose")}}</button>
+  <button mat-raised-button mat-dialog-close color="warn" (click)="successClick()"> {{rs.Resource("LabelSubmit")}} </button>
+</mat-dialog-actions>
+

@@ -1,0 +1,11 @@
+<div class='body-content'>
+  <router-outlet></router-outlet>
+</div>
+
+
+<logout-modal (success)="logout()"
+              [body]=" rs.Resource('ConfirmSignOut') "
+              [header]=" rs.Resource('LabelSignOut') "
+              [successButtonName]=" rs.Resource('LabelYes') "
+              [cancelButtonName]=" rs.Resource('LabelNo') ">
+</logout-modal>

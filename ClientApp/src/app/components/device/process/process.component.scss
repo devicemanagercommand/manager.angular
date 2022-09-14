@@ -1,0 +1,174 @@
+@use '@angular/material' as mat;
+@import '../../../../styles.scss';
+
+#terminal pre {
+  position: absolute;
+  top: 3.0em;
+  bottom: 50px;
+  width: 100%;
+  overflow-y: hidden;
+  font-family: 'Lucida Console';
+  font-size: 1em;
+  background-color: #1E1E1E;
+  color: aliceblue;
+  border-radius: 0;
+  border: unset;
+  white-space: pre-wrap;
+  padding-left: 0.25em;
+}
+
+.dmc-scrollbar {
+  position: relative;
+  max-height: 100%;
+  min-height: 100%;
+}
+
+
+.command {
+  position: fixed;
+  display: block;
+  bottom: 0px;
+  margin: 0px 0px;
+  border-radius: 0;
+  z-index: 100;
+  color: silver;
+  border: 0;
+  box-shadow: none;
+  padding-left: 0.5em;
+  padding-bottom: 0.3em;
+  background-color: $background-primary !important;
+  caret-color: mat.get-color-from-palette($primary);
+  font-size: medium;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 33px+23px;
+  z-index: 1000;
+  width: 100%;
+}
+
+#terminal .ConsoleError {
+  color: #c33a3a;
+  font-weight: bold;
+}
+
+.default {
+  color: silver;
+}
+
+.error {
+  color: #c33a3a;
+}
+
+.commands {
+  color: lightblue;
+}
+
+@keyframes error-command-input-frame {
+  from {
+    color: #a94442;
+  }
+
+  to {
+    color: #aaa;
+  }
+}
+
+#terminal .error-command-input {
+  animation: error-command-input-frame 0.2s ease-out;
+}
+
+/*State Animations */
+@keyframes DisconnectedAnimation {
+  0% {
+    background-color: #707040;
+  }
+
+  100% {
+    background-color: #353535;
+  }
+}
+
+@keyframes DisconnectingAnimation {
+  0% {
+    background-color: #455045;
+  }
+
+  25% {
+    background-color: #707040;
+  }
+
+  75% {
+    background-color: #455045;
+  }
+
+  100% {
+    background-color: #455045;
+  }
+}
+
+@keyframes ConnectedAnimation {
+  0% {
+    background-color: #353535;
+  }
+
+  100% {
+    background-color: #455045;
+  }
+}
+
+#terminal .Connected {
+  background-color: #455045;
+  animation: ConnectedAnimation 3s ease 1 normal;
+}
+
+#terminal .Connected .ConnectedImage {
+  /*background: url(../Imagen/Connected48x48.png) no-repeat center;*/
+  display: inline;
+}
+
+#terminal .Connected .DisconnectedImage, .DisconnectingImage {
+  display: none;
+}
+
+#terminal .Disconnecting {
+  animation: DisconnectingAnimation 2.5s ease infinite;
+  background-color: #353535;
+}
+
+#terminal .Disconnecting .DisconnectingImage {
+  display: inline;
+  /*background: url(../Imagen/Disconnected48x48.png) no-repeat center;*/
+}
+
+#terminal .Disconnecting .ConnectedImage, .DisconnectedImage {
+  display: none;
+}
+
+#terminal .Disconnected {
+  animation: DisconnectedAnimation 5s ease 1 normal;
+  background-color: #353535;
+}
+
+#terminal .Disconnected .DisconnectedImage {
+  display: inline;
+  /*background: url(../Imagen/Disconnected48x48.png) no-repeat center;*/
+}
+
+#terminal .Disconnected .ConnectedImage, .DisconnectingImage {
+  display: none;
+}
+
+.status-bar {
+  position: absolute;
+  box-sizing: border-box;
+  display: block;
+  bottom: 35px;
+  padding-left: 5px;
+  z-index: 200;
+  height: 23px;
+  width: 100%;
+  background-color: #353535;
+  color: silver;
+}

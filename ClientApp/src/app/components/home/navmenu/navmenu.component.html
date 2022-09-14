@@ -1,0 +1,35 @@
+<div class="">
+  <div class="navbar navbar-inverse first-navbar">
+    <div class="container-fluid">
+      <a *ngIf="!isMobile" [routerLink]="['/home']" class="navbar-header dmc-banner">
+        DMC
+      </a>
+      <a *ngIf="isMobile" class="navbar-header dmc-banner">
+        DMC
+      </a>
+      <div class="">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <button mat-button color="warn" [routerLink]="['/home/sign-up']">
+              <span></span> {{rs.Resource('LabelRegister')}}
+            </button>
+            <button mat-raised-button color="primary" data-toggle="modal" [routerLink]="['/home/login/main']">
+              <span></span>{{rs.Resource('LabelLogin')}}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!--<div class="navbar navbar-inverse second-navbar">
+      <div id="second-navbar" class="container-fluid">
+          <ul class="center-navbar nav navbar-nav">
+              <li [routerLinkActive]="['link-active']">
+                  <a [routerLink]="['/home']">
+                      <span class='glyphicon glyphicon-home'></span> Home
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>-->
+</div>

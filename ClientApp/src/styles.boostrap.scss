@@ -1,0 +1,248 @@
+/* You can add global styles to this file, and also import other style files */
+/*https://www.motocms.com/website-templates/demo/42695.html*/
+
+/*@import '../node_modules/bootstrap/dist/css/bootstrap-reboot.min.css';*/
+
+html {
+  font-size: 10px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-size: 16px !important;
+  /*line-height: 1.42857143;*/
+  /*color: #333333;*/
+  /*background-color: #fff;*/
+}
+
+/*input {
+  background-color: #242425 !important;
+  border: 1px solid #3B3B3C !important;
+  color: #ccc !important;
+}*/
+
+/* To invert GlypIcon Color */
+.white-glypicon, .white-glypicon a {
+  color: #fff;
+}
+
+.card-default {
+  background-color: #3e3e3e !important;
+}
+
+.card-default, .modal {
+  border: 1px solid #2D2D2F !important;
+}
+
+.card {
+  background-color: $background-primary !important;
+}
+
+.card-body {
+  background-color: $background-primary !important;
+  border-top: 1px solid #2D2D2F;
+}
+
+.card-default .card-header {
+  background-color: $background-accent !important;
+  color: silver !important;
+  border-bottom: 1px solid #2D2D2F !important;
+}
+
+.card-header {
+  color: silver;
+}
+
+.modal .modal-header {
+  color: white;
+  border-bottom: 1px solid #2D2D2F;
+  background-color: #2a2a2a;
+}
+
+.card-default .card-header {
+  text-align: center;
+  padding: 7px 7px;
+}
+
+.modal .modal-body {
+  background-color: #222223;
+}
+
+.modal .modal-footer {
+  background-color: #2f2f2f;
+  color: white;
+  border: unset;
+}
+
+.card-default .btn, .card-header {
+  border-radius: unset;
+}
+
+.vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+#popGeneric {
+  min-width: 40vh;
+}
+
+#popGeneric p {
+  text-align: center;
+}
+
+#popGeneric .alert {
+  padding: 0px !important;
+}
+
+
+.field-validation-error {
+  color: indianred;
+  font-weight: bold;
+}
+
+.editor-label :first-child {
+  display: inline;
+}
+
+.dv-gray-0 {
+  background-color: #151515;
+}
+
+.dv-gray-1 {
+  background-color: #252525;
+}
+
+.dv-gray-2 {
+  background-color: #353535;
+}
+
+.dv-gray-3 {
+  background-color: #454545;
+}
+
+.dv-gray-4 {
+  background-color: #555555;
+}
+
+.dv-gray-5 {
+  background-color: #555555;
+}
+
+@media screen and (max-width: 768px) {
+  .modal-dialog {
+  }
+
+  .modal-dialog .modal-body {
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .horizontal-scroll {
+    overflow-y: auto;
+    background-color: #353535;
+  }
+}
+
+
+
+.tooltip1 .tooltip-inner {
+  background-color: #333;
+  color: silver;
+}
+
+.tooltip.bootom .tooltip-arrow:before,
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #333;
+}
+
+
+//NAVBAR
+.navbar-inverse {
+  background-color: $background-accent !important;
+  border: unset;
+  min-height: unset;
+  margin-bottom: 5px;
+}
+
+.navbar-collapse {
+}
+
+.navbar {
+  background-color: $background-accent !important;
+  min-height: 36px !important;
+  margin-bottom: 5px !important;
+}
+
+.navbar-nav.navbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translatex(-50%);
+}
+
+.navbar-nav.navbar-right {
+  margin-right: unset;
+}
+
+.navbar-nav.navbar-left {
+  margin-left: unset;
+}
+
+.navbar button {
+  margin: auto 0;
+}
+
+
+//MODAL
+.modal-content {
+  background-color: unset !important;
+}
+
+.modal-footer {
+  padding: 7px !important;
+}
+
+.alert {
+  border: unset;
+  background: $background-warn;
+  border-bottom: 1px solid;
+}
+
+.alert-warning {
+  color: $warn-color;
+  border-bottom-color: $warn-color;
+}
+
+.alert-danger {
+  color: $warn-color;
+  border-bottom-color: $warn-color;
+}
+
+.alert-success {
+  color: $primary-color;
+  border-bottom-color: $primary-color;
+}
+
+.alert-info {
+  color: $accent-color;
+  border-bottom-color: $accent-color;
+}
+
+
+.form-control {
+  display: unset;
+  width: unset;
+  height: unset;
+  padding: unset;
+  font-family: unset;
+  font-weight: unset;
+  line-height: unset;
+  color: unset;
+  background-color: unset; 
+  background-clip: unset;
+  border: unset;
+}

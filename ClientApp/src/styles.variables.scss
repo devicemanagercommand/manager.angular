@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+
+@import '../node_modules/@angular/material/_theming.scss';
+@include mat.core();
+
+$background-primary: #232323;
+$background-accent: #353535;
+$background-warn: #1f1f1f;
+$font-color-default: silver;
+
+$my-app-primary: mat.define-palette(mat.$light-green-palette, 700);
+$my-app-accent: mat.define-palette(mat.$cyan-palette, 800 );
+$my-app-warn: mat.define-palette(mat.$red-palette, 400);
+$my-app-theme: mat.define-dark-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+$primary: map-get($my-app-theme, primary);
+$accent: map-get($my-app-theme, accent);
+$warn: map-get($my-app-theme, warn);
+
+$primary-color: mat.get-color-from-palette($primary);
+$accent-color: mat.get-color-from-palette($accent);
+$warn-color: mat.get-color-from-palette($warn);
+
+
+$colors: primary $primary-color, accent $accent-color, warn $warn-color, background-accent $background-accent;
+$prefix: "--"; //Prefix string for custom CSS properties
+
+//Merges a variable name with $prefix
+@function custom-property-name($name) {
+  @return $prefix + $name;
+}
+
+// Defines a custom property
+@mixin define-custom-property($name, $value) {
+  #{custom-property-name($name)}: $value;
+}
+
+body {
+  // Append pre-defined colors in $colors:
+  @each $name, $value in $colors {
+    @include define-custom-property($name, $value);
+  }
+}

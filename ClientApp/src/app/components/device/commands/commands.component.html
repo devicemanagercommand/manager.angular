@@ -1,0 +1,110 @@
+<div class="navbar navbar-expand-lg navbar-dark bg-faded" role="navigation">
+
+  <device-header-nav-menu [rootClass]="'d-block d-lg-none'">
+  </device-header-nav-menu>
+
+
+  <button type="button" class="navbar-toggler ml-auto" data-toggle="collapse" aria-expanded="false" aria-controls="navbarNavDropdown" data-target="#navbarNavDropdown">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse collapse" id="navbarNavDropdown">
+    <ul class="nav navbar-nav navbar-left">
+      <li>
+        <button *ngIf="this.deviceService?.activeDevice?.isRole('gcc_new')" [disabled]="this.commandService?.model?.disableModule" mat-button color="primary" (click)="addCommand()">
+          <mat-icon>add</mat-icon>&nbsp;{{rs.Resource("LabelAdd")}}&nbsp;
+        </button>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-center"></ul>
+    <ul class="nav navbar-nav ml-auto">
+      <li>
+        <device-header-nav-menu [device]="this.commandService?.model?.device"
+                                [rootClass]="'d-none d-lg-block'"
+                                [tooltipBanner]="rs.Resource('TooltipCustomCommands')"
+                                [banner]="rs.Resource('LabelCustomCommands')"
+                                [showBackButton]="false">
+        </device-header-nav-menu>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<dmc-progress-bar [isLoading]="isLoading" mode="indeterminate"></dmc-progress-bar>
+
+<div class="status-bar {{deviceState}}">
+  [{{deviceService?.activeDevice?.description}}] {{deviceState}}
+  <span class="hidden-xs"> </span>]
+</div>
+
+<dmc-module-title [tooltipBanner]="rs.Resource('TooltipCustomCommands')"
+                  [banner]="rs.Resource('LabelCustomCommands')"
+                  [device]="this.commandService?.model?.device"
+                  [rootClass]="'d-block d-lg-none'">
+</dmc-module-title>
+
+
+
+<div *ngIf="this.deviceService?.activeDevice?.isRole('gcc_exe')" class="container" (window:resize)="onResize($event)">
+  <alert-panel [input]="alertPanel"></alert-panel>
+
+
+  <mat-grid-list [cols]="this.breakpoint" rowHeight="120px" [gutterSize]="'5px'">
+    <mat-grid-tile *ngFor="let ccc of this.commandService?.model?.commandCustomControl;let i = index">
+
+      <div class="card " [@opacity]="ccc">
+        <div class="card-title d-flex justify-content-between align-items-center">
+          <div> {{ccc?.name}}</div>
+          <div>
+            <a *ngIf="this.deviceService?.activeDevice?.isRole('gcc_edit')" class="a-button" (click)="editCommand($event,ccc)"><mat-icon color="accent">edit</mat-icon></a>
+            <a *ngIf="this.deviceService?.activeDevice?.isRole('gcc_del')" class="a-button" (click)="deleteCommand($event,ccc)"><mat-icon color="accent">delete</mat-icon></a>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="ccc-progress">
+            <div [hidden]="!ccc.isExecutingCommand">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+          </div>
+
+          <!--Button-->
+          <div name="fontStyle" aria-label="Font Style" *ngIf="ccc.commandControlId == 1">
+            <button [disabled]="isLoading || ccc.isExecutingCommand"
+                    mat-button color="primary" *ngFor="let co of ccc.commandOptions;let i = index"
+                    (click)="executeCommand($event,ccc,co)">
+              {{co.name}}
+            </button>
+          </div>
+
+          <!--Toggle-->
+          <mat-button-toggle-group color="primary" name="fontStyle"
+                                   [value]="ccc.selectedOption"
+                                   aria-label="Font Style" *ngIf="ccc.commandControlId == 2">
+            <mat-button-toggle [disabled]="isLoading || ccc.isExecutingCommand"
+                               color="primary"
+                               *ngFor="let co of ccc.commandOptions;let i = index"
+                               (click)="executeCommand($event,ccc,co)"
+                               [value]="co">
+              {{co.name}}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+
+          <!--Multiselect-->
+          <mat-form-field name="fontStyle" aria-label="Font Style" *ngIf="ccc.commandControlId == 3">
+            <mat-select [disabled]="isLoading || ccc.isExecutingCommand"
+                        style="text-align:center"
+                        [value]="ccc.selectedOption">
+              <mat-option *ngFor="let co of ccc.commandOptions;let i = index"
+                          [value]="co"
+                          (click)="executeCommand($event,ccc,co)">
+                {{co.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

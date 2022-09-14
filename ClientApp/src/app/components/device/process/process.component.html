@@ -1,0 +1,59 @@
+
+<div id="terminal" *ngIf="deviceService?.activeDevice?.isRole('proc_view')">
+
+  <div class="navbar navbar-expand-lg navbar-dark bg-faded fixed-top" role="navigation">
+    <device-header-nav-menu [device]="this.deviceService.activeDevice"
+                            [rootClass]="'d-block d-lg-none'">
+    </device-header-nav-menu>
+
+    <button type="button" class="navbar-toggler ml-auto" data-toggle="collapse" aria-expanded="false" aria-controls="navbarNavDropdown" data-target="#navbarNavDropdown">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbarNavDropdown">
+      <ul class="nav navbar-nav navbar-left">
+        <li>
+          <button mat-button color="accent" (click)="openConfigurationWindow()" class="xs-full-width">
+            <mat-icon>settings</mat-icon>&nbsp;{{rs.Resource('LabelConfiguration')}}
+          </button>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav "></ul>
+      <ul class="nav navbar-nav ml-auto">
+        <li>
+          <device-header-nav-menu [device]="this.deviceService.activeDevice"
+                                  [rootClass]="'d-none d-lg-block'"
+                                  [showBackButton]="false">
+          </device-header-nav-menu>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <pre #terminal *ngIf="processService.activeDevice?.processModel?.terminalLines != null"><ng-scrollbar track="all" appareance="standard" class="dmc-scrollbar"><code #code [ngStyle]="{ 'white-space': (!processService.processOptions?.isWrappedLines) ? 'pre' : 'pre-wrap' }"> <ng-container *ngFor="let terminalLine of processService.activeDevice.processModel.terminalLines"><span class="{{terminalLine.typeClass}}">{{terminalLine.line}}</span><br /></ng-container></code></ng-scrollbar></pre>
+
+  <div [hidden]="!this.isLoading" class="progress-bar">
+    <mat-progress-bar mode="query"></mat-progress-bar>
+  </div>
+
+  <div class="status-bar {{deviceState}}">
+    [{{deviceService?.activeDevice?.description}}@{{processService.processOptions?.selectedProcess?.fileName}}
+    <span class="hidden-xs">
+      ({{processService?.processOptions?.selectedProcessImplementation?.implementationTypeName}})
+      {{processService?.processCommand?.currentDirectory}}>
+    </span>]
+  </div>
+
+  <div *ngIf="processService.processCommand != null" [hidden]="processService.isActive == false">
+    <input matInput
+           #command [(ngModel)]="processService?.processCommand.command"
+           id="command"
+           name="command"
+           type="text" required placeholder="{{rs.Resource('LabelInsertCommand')}}"
+           class="form-control command"
+           [disabled]="!processService.commandEnabled"
+           (keydown)="command_keypress($event)"
+           autocapitalize="off"
+           autocomplete="off">
+  </div>
+</div>

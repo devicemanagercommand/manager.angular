@@ -1,0 +1,20 @@
+<div id="logout-modal" class="modal fade" bsModal #logoutModal="bs-modal" [config]="{backdrop: 'static'}" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        {{header}} <span style="color:gray">&nbsp;(alt+q)</span>
+      </div>
+      <div class="modal-body">
+        {{body}}
+      </div>
+      <div class="modal-footer">
+
+        <button mat-button (click)="cancelClick()"> {{cancelButtonName}} </button>
+        <button mat-raised-button (click)="successClick()" color="primary">{{successButtonName}}</button>
+        <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+        <!--<button id="sucess" type="button" value="" (click)="successClick()" class="btn btn-primary">{{successButtonName}}</button>
+        <button id="cancel" type="button" value="" (click)="cancelClick()" class="btn btn-secondary">{{cancelButtonName}}</button>-->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+@import '../../../../styles.scss';
+
+.default {
+  color: silver;
+}
+
+.error {
+  color: mat.get-color-from-palette($primary)
+}
+
+.commands {
+  color: mat.get-color-from-palette($accent);
+}
+

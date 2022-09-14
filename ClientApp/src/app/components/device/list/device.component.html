@@ -1,0 +1,68 @@
+<device-nav-menu [userInfo]="this.userInfo"
+                 [devices]="devices"
+                 (showRemovedDevices)="showRemovedDevices($event)">
+</device-nav-menu>
+
+<sass-helper></sass-helper>
+
+<alert-panel [input]="alertPanel"></alert-panel>
+
+<div id="device" class="container" *ngIf="devices != null">
+
+  <div class="row device-list-header d-none d-lg-flex" *ngIf="devices?.length > 0">
+    <div class="col-lg-1">{{rs.Resource('LabelStatus')}}</div>
+    <div class="col-lg-7">{{rs.Resource('LabelDescription')}}</div>
+    <div class="col-lg-1">{{rs.Resource('LabelDeviceInfo')}}</div>
+    <div class="col-lg-1" matTooltip="{{rs.Resource('TooltipCustomCommands')}}">{{rs.Resource('LabelCustomCommands')}}</div>
+    <div class="col-lg-1">{{rs.Resource('LabelConsole')}}</div>
+    <div class="col-lg-1">{{rs.Resource('LabelConfiguration')}}</div>
+  </div>
+
+  <div *ngFor="let device of devices" class="device-body-list">
+    <ng-container *ngIf="!device.removed || device.showRemoved">
+      <div class="row device-list-row  d-lg-none" style="height: 3em">
+        <div class="description-xs col" style="">
+          {{device.description}}<span *ngIf="device.removed">&nbsp;({{rs.Resource('LabelRemoved')}})</span>
+        </div>
+      </div>
+      <div class="row altRow1 device-list-row">
+        <div class="col-lg-1 col-3 d-none d-lg-flex" matTooltip="{{ device.lastConnectionToLocal  }}">
+          <i *ngIf="!device.removed" [@connected]="{value: device.state, params:{ primary:primary,warn:warn,accent:accent,default:default}}"
+             class="df-icon material-icons md-48 ConnectedImage">radio_button_checked</i>
+          <i *ngIf="!device.removed" [@connected]="{value: device.state, params:{ primary:primary,warn:warn,accent:accent,default:default}}"
+             class="df-icon material-icons md-48 DisconnectingImage">radio_button_unchecked</i>
+          <i *ngIf="!device.removed" [@connected]="{value: device.state, params:{ primary:primary,warn:warn,accent:accent,default:default}}"
+             class="df-icon material-icons md-48 DisconnectedImage">radio_button_unchecked</i>
+        </div>
+        <div class="col-lg-7 description d-none d-lg-table-cell" style="">{{device.description}}&nbsp;<span *ngIf="device.removed">({{rs.Resource('LabelRemoved')}})</span></div>
+        <div class="col-lg-1  col-3">
+          <button *ngIf="!device.removed" mat-button [routerLink]="['/devices/info', device.id, device.userContractId]" matTooltip="{{ device.lastConnectionToLocal }}">
+            <i class="material-icons md-light md-48">info_outline</i>
+          </button>
+        </div>
+        <div class="col-lg-1  col-3" matTooltip="{{rs.Resource('TooltipCustomCommands')}}">
+          <button *ngIf="!device.removed" [disabled]="!device.isRole('gcc_view')" mat-button [routerLink]="['/devices/commands', device.id, device.userContractId]" data-transition="flip">
+            <div [@connected]="{value: ( device.isRole('gcc_view') ? device.state : ''), params:{ primary:primary,warn:warn,accent:accent,default:default}}"
+                 class="material-icons md-48 active-icon">dashboard</div>
+          </button>
+
+        </div>
+        <div class="col-lg-1  col-3" matTooltip="{{rs.Resource('LabelTerminal')}}">
+          <button *ngIf="!device.removed" [disabled]="!device.isRole('proc_view')" mat-button [routerLink]="['/devices/process', device.id, device.userContractId]" data-transition="flip">
+
+            <div [@connected]="{value: ( device.isRole('conf_view') ? device.state : ''), params:{ primary:primary,warn:warn,accent:accent,default:default}}"
+                 class="material-icons md-48 active-icon">video_label</div>
+          </button>
+        </div>
+        <div class="col-lg-1  col-3" matTooltip="{{rs.Resource('TooltipConfiguration')}}">
+          <button *ngIf="!device.removed" mat-button [routerLink]="['/devices/setting', device.id, device.userContractId]"
+                  [disabled]="!device.isRole('conf_view')">
+            <i class="material-icons md-48 active-icon-2"
+               [ngClass]="{'disabled-icon': !device.isRole('conf_view')}">settings</i>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+

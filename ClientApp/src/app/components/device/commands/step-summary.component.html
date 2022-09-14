@@ -1,0 +1,63 @@
+<form #summaryStepForm="ngForm">
+
+  <div [hidden]="!isLoading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <br />
+  <div style="text-align:center">
+    <div class="card">
+      <div class="card-title d-flex justify-content-between align-items-center">
+        <div> {{this.commandService?.model?.newCustomControl?.name}}</div>
+        <div align="right">
+          <a class="a-button"><mat-icon color="accent">edit</mat-icon></a>
+          <a class="a-button"><mat-icon color="accent">delete</mat-icon></a>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="ccc-progress">
+          <div [hidden]="!this.commandService?.model?.newCustomControl.isExecutingCommand">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+        </div>
+        <div class="card-content" colspan="2">
+          <div name="fontStyle" aria-label="Font Style" *ngIf="this.commandService?.model?.newCustomControl.commandControlId == 1">
+            <button [disabled]="isLoading || this.commandService?.model?.newCustomControl.isExecutingCommand"
+                    mat-button color="primary"
+                    *ngFor="let co of this.commandService?.model?.newCustomControl.commandOptions;let i = index"
+                    (click)="executeCommand($event,this.commandService?.model?.newCustomControl,co)">
+              {{co.name}}
+            </button>
+          </div>
+
+          <mat-button-toggle-group color="primary" name="fontStyle" aria-label="Font Style" *ngIf="this.commandService?.model?.newCustomControl.commandControlId == 2">
+            <mat-button-toggle [disabled]="isLoading || this.commandService?.model?.newCustomControl.isExecutingCommand" color="primary" *ngFor="let co of this.commandService?.model?.newCustomControl.commandOptions;let i = index"
+                               (click)="executeCommand($event,this.commandService?.model?.newCustomControl,co)">
+              {{co.name}}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+
+          <mat-form-field name="fontStyle" aria-label="Font Style" *ngIf="this.commandService?.model?.newCustomControl.commandControlId == 3">
+            <mat-select [disabled]="isLoading || this.commandService?.model?.newCustomControl.isExecutingCommand" style="text-align:center">
+              <mat-option *ngFor="let co of this.commandService?.model?.newCustomControl.commandOptions;let i = index"
+                          [value]="co" (click)="executeCommand($event,this.commandService?.model?.newCustomControl,co)">
+                {{co.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div align="end">
+    <br />
+    <button mat-button matStepperPrevious>{{rs.Resource('LabelPrev')}}</button>
+    <button mat-raised-button
+            color="primary"
+            (click)="addNewCustomCommand()"
+            [disabled]="!summaryStepForm.form.valid || !this.commandService.methodStepIsValid || isLoading">
+      {{rs.Resource('LabelSave')}}
+    </button>
+  </div>
+</form>

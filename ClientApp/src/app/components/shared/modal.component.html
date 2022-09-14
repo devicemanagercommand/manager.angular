@@ -1,0 +1,18 @@
+<div id="dmc-modal{{id}}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{header}}
+            </div>
+            <div class="modal-body">
+                {{body}}
+            </div>
+            <div class="modal-footer">
+                <button mat-button id="cancel" type="button" value="" (click)="cancelClick()">{{cancelButtonName}}</button>
+                <button mat-raised-button color="primary" id="sucess" type="button" value="" (click)="successClick()">{{successButtonName}}</button>
+                <button style="display:none" #closeModal data-dismiss="modal" type="submit"></button>
+                <button style="display:none" #openModal data-toggle="modal" [attr.data-target]="'#dmc-modal' + id"></button>
+            </div>
+        </div>
+    </div>
+</div>

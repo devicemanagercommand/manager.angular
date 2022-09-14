@@ -1,0 +1,27 @@
+<div class="page d-flex flex-column home">
+
+  <div class="content">
+    <div id="headerLayout" class="ui-grid-b">
+    </div>
+
+    <about></about>
+  </div>
+
+  <div class="footer">
+
+    <div class="logo-title  hidden-xs">DMC</div>
+
+    <div class="column-1">
+      <div><a [routerLink]="['/home/privacy']">{{rs.Resource('LabelPrivacy') }}/{{rs.Resource('LabelPolicy')}}</a></div>
+      <div><a [routerLink]="['/home/contact']">{{rs.Resource('LabelContact') }}</a></div>
+    </div>
+
+    <div class="center footer-info">
+      {{rs.Resource('InfoTranslationIssue')}}
+    </div>
+    <div class="version right">
+      {{rs.Resource('LabelVersionNumber')}}
+    </div>
+  </div>
+
+</div>

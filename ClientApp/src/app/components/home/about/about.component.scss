@@ -1,0 +1,54 @@
+@import 'src/styles.variables.scss';
+
+:host {
+  height: unset !important;
+}
+
+div {
+  color: silver;
+}
+
+::ng-deep .carousel img {
+  opacity: 0.3;
+}
+
+::ng-deep .carousel:focus {
+  outline: none !important;
+}
+
+.logo img {
+  height: 250px;
+  opacity: 0.6;
+  position: relative;
+  text-align: center;
+  top: 3.5em;
+}
+
+slide {
+  height: 450px;
+}
+
+div .panel {
+  margin-top: 2em;
+}
+
+pre {
+  background-color: transparent;
+  color: silver;
+  border: none;
+}
+
+.about {
+  height: 100%;
+}
+
+.get-started {
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+/* Android get it logo */
+.google-play-badge {
+  width: 120px !important;
+  text-align: center;
+}

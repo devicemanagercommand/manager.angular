@@ -1,0 +1,41 @@
+@import '../../../styles.scss';
+
+:host {
+  background-color: $background-primary;
+}
+
+
+.sign-up {
+  margin: 0 auto;
+}
+
+
+h4 {
+  text-align: center;
+}
+
+.navbar{
+    height:48px;
+}
+
+
+.recaptcha {
+  width: 25%;
+  margin: auto;
+}
+
+/* stack all grids below 40em (640px) */
+@media all and (max-width: 40em) {
+
+  .recaptcha {
+    width: inherit;
+    margin: inherit;
+  }
+}
+
+@media all and (min-width: 40em) and (max-width: 1024px) {
+  .recaptcha {
+    width: 35%;
+    margin: auto;
+  }
+}

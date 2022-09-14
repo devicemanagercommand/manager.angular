@@ -1,0 +1,98 @@
+@use '@angular/material' as mat;
+@import 'src/styles.variables.scss';
+
+$led-padding: 0.5em;
+$led-height: 0.3em;
+$row-height: 70px;
+
+/*Header */
+.inline {
+  display: inline-block;
+}
+
+:host {
+  background-color: $background-primary;
+}
+
+.description-xs {
+  background-color: $background-accent !important;
+}
+
+.device-list-header {
+  background-color: $background-accent;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.active-icon {
+  color: mat.get-color-from-palette($primary);
+}
+
+.active-icon-2 {
+  color: mat.get-color-from-palette($accent);
+}
+
+.disabled-icon {
+  color: $background-accent;
+}
+
+#device {
+  color: #f1f1f1;
+  background-color: #222223;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  border-right: 1px solid #2D2D2F;
+  border-left: 1px solid #2D2D2F;
+}
+
+#device .device-list-header div {
+  border: 1px solid #2D2D2F;
+  text-align: center;
+  /*border-bottom: 1px solid #577430;*/
+  padding: 0.5em;
+}
+
+/*Rows*/
+#device .device-list-row > div {
+  padding: 0.5em;
+  text-align: center;
+  border: 1px solid #2D2D2F;
+  background-color: #222223;
+  height: $row-height;
+}
+
+
+#device .Connected .ConnectedImage {
+  display: inline;
+}
+
+#device .Connected .DisconnectedImage, .DisconnectingImage {
+  display: none;
+}
+
+#device .Disconnecting .DisconnectingImage {
+  display: inline;
+}
+
+#device .Disconnecting .ConnectedImage, .DisconnectedImage {
+  display: none;
+}
+
+#device .Disconnected .DisconnectedImage {
+  display: inline;
+}
+
+#device .Disconnected .ConnectedImage, .DisconnectingImage {
+  display: none;
+}
+
+.df-icon {
+  margin: 0 auto;
+  color: $background-accent;
+}

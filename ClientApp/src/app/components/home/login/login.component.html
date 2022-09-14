@@ -1,0 +1,57 @@
+<div class="login-container">
+  <img class="img-logo" src="/content/images/logo.png" />
+  <div id="userLogin" bsModal #loginModal="bs-modal" [config]="{backdrop: 'static'}">
+    <div id="dvLogin">
+      <form #loginForm="ngForm" name="loginForm" (ngSubmit)="login()">
+        <div class="modal-header no-borders">
+          {{rs.Resource('LabelLogin')}}
+        </div>
+        <div class="modal-body">
+
+          <mat-form-field name="fontStyle" aria-label="Font Style" appearance="fill">
+            <mat-label>{{rs.Resource('LabelUser')}}</mat-label>
+            <input matInput #user
+                   autofocus
+                   name="user"
+                   id="user"
+                   [(ngModel)]="model.user"
+                   required
+                   type="text"
+                   placeholder="{{rs.Resource('LabelUser')}}" />
+          </mat-form-field>
+
+          <mat-form-field name="fontStyle" aria-label="Font Style" appearance="fill">
+            <mat-label>{{rs.Resource('LabelPassword')}}</mat-label>
+            <input matInput [(ngModel)]="model.password"
+                   name="password"
+                   required
+                   type="password"
+                   placeholder="{{rs.Resource('LabelPassword')}}" />
+          </mat-form-field>
+          <label></label>
+          <div [hidden]="!requireCaptcha" class="captcha">
+            <re-captcha #captcha="reCaptcha" (resolved)="resolved($event)" siteKey="6LcaqycTAAAAAE2SZxqA6OVkm-QLXuC9AOSCEgzp"></re-captcha>
+          </div>
+
+          <div [hidden]="!this.isLoading">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+        </div>
+        <div class="modal-footer no-borders">
+          <a [routerLink]="['/home/password/forgot']" (click)="close()">
+            {{rs.Resource('LabelForgottenPasswordQuestion')}}
+          </a>
+          <br />
+          &nbsp;&nbsp;
+          <button mat-raised-button id="btnLogin" type="submit" value="Ingresar" color="primary"
+                  [disabled]="!loginForm.form.valid || this.isLoading">
+            {{rs.Resource('LabelLogin')}}
+          </button>
+          <br />
+        </div>
+      </form>
+    </div>
+    <br />
+    <asl-google-signin-button type='standard' size='medium' theme="filled_black"></asl-google-signin-button>
+  </div>
+</div>
