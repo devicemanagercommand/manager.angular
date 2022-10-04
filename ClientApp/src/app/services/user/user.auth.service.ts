@@ -132,7 +132,11 @@ export class UserAuthService {
       return this.http.post(this.userAuthConfiguration.tokenEndpoint, body.toString(), { headers: headers })
     }
     else if (socialLoginId === "google") {
-      this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+      this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID).catch(
+        err => {
+          this.logout();
+        }
+      );
     }
   }
 
