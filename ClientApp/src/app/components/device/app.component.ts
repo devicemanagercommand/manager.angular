@@ -1,4 +1,4 @@
-import { Component, isDevMode, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LangService } from '../../services/shared/lang.service';
 import { UserAuthService } from "../../services/user/user.auth.service";
 import { ConfigurationService } from '../../services/shared/configuration.service';

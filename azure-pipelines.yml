@@ -1,0 +1,53 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: CmdLine@2
+  inputs:
+    script: |
+      pwd
+      ls
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+
+      echo "CREATING IMAGE"
+
+      cd manager.angular
+
+      ./docker-compose-build.ps1
+
+      mkdir -p images
+
+      docker save -o client_angular.tar mgr_client_angular:$(cat docker-compose.yml  | grep "mgr_client_angular" | awk -F':'  '{print $3}')
+
+      echo "LS TARS"
+      mv *.tar images/
+      mv *.yml images/
+      ls images
+
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'mgr/images'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'

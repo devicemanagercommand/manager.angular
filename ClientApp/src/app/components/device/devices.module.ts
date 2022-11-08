@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule} from '@angular/core';
 
 //Site Component
 import { DeviceLeftNavMenuComponent } from './../navmenu/device-header-nav-menu.component';

@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+
+  #Angular 
+  client_angular:
+    build:
+      context: ../
+      dockerfile: manager.angular/Dockerfile
+    image: mgr_client_angular:1.32.0
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "80"
+    volumes:
+      - /data/mgr/angular/logs:/app/log
+      - /data/data:/data/data
+    networks:
+      - dmc_network 
+
+networks:
+  dmc_network:
+    external: true

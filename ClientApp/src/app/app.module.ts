@@ -17,7 +17,6 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from './components/shared/shared.module';
 
 export function tokenGetter(): string {

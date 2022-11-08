@@ -27,7 +27,7 @@ export class CommandService {
   public Any_Error: EventEmitter<any> = new EventEmitter<any>();
   public isActive = true;
   public isInitialized = false;
-  public isDevMode: boolean;
+  public _isDevMode: boolean;
 
   constructor(
     private httpAuth: HttpAuthService,
@@ -38,7 +38,7 @@ export class CommandService {
     private invokerService: InvokerService,
   ) {
     console.log("CommandService.constructor");
-    this.isDevMode = isDevMode();
+    this._isDevMode = isDevMode();
   }
 
   init(device: DeviceModel): Observable<CommandsModel> {
@@ -109,8 +109,8 @@ export class CommandService {
           }
         }
 
-        if (this.isDevMode) {
-          var option1 = new CommandOptionModel();
+        if (this._isDevMode) {
+          const option1 = new CommandOptionModel();
           option1.name = "test";
           this.model.newCustomControl.name = "test label";
           this.model.newCustomControl.commandOptions = [option1];
@@ -121,7 +121,7 @@ export class CommandService {
           this.model.selectedCommand = rsp.command[0];
         }
 
-        var cccModelCloned = this.CloneCCCModel(this.model);
+        const cccModelCloned = this.CloneCCCModel(this.model);
         cccModelCloned.isLoaded = true;
         device.cccModel = cccModelCloned;//this.model; Cloned to doesn't interfer in other device cccModel.
         this.model = cccModelCloned;
@@ -132,7 +132,7 @@ export class CommandService {
 
   //Warning Clone Ignore Deletes Of CCC in this.model, because the model is regenerate from device in memory.
   CloneCCCModel(commandsModel: CommandsModel): CommandsModel {
-    let commandModelCloned = new CommandsModel(commandsModel.device);
+    const commandModelCloned = new CommandsModel(commandsModel.device);
     commandModelCloned.command = commandsModel.command;
     commandModelCloned.commandConfiguration = commandsModel.commandConfiguration;
     commandModelCloned.commandControl = commandsModel.commandControl;
@@ -157,7 +157,7 @@ export class CommandService {
   }
 
   DefaultValueOfProperties(p: CommandPropertyModel): any {
-    for (let prop of p.commandProperties) {
+    for (const prop of p.commandProperties) {
       if (prop.commandPropertyType.name == "object") {
         this.DefaultValueOfProperties(prop);
       }
@@ -191,8 +191,8 @@ export class CommandService {
 
   loadCommandControl(ccm: CommandControlModel) {
 
-    let multiplicity = ccm.multiplicity;
-    let anotherArray = new Array<CommandOptionModel>();
+    const multiplicity = ccm.multiplicity;
+    const anotherArray = new Array<CommandOptionModel>();
 
     if (multiplicity == "1" || multiplicity == "2" || multiplicity == "?") {
       this.model.selectedMethods = new Array<CommandMethodModel>();
