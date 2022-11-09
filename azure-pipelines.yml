@@ -23,8 +23,6 @@ steps:
 
       echo "CREATING IMAGE"
 
-      cd manager.angular
-
       ./docker-compose-build.ps1
 
       mkdir -p images
@@ -39,7 +37,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: 'mgr/images'
+    rootFolderOrFile: 'images'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
