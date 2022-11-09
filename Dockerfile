@@ -7,10 +7,10 @@ RUN apk update \
     && apk add nodejs npm
 
 COPY . . 
-RUN dotnet restore "manager.angular/DMC.Manager.Angular.csproj" --runtime alpine-x64
+RUN dotnet restore "DMC.Manager.Angular.csproj" --runtime alpine-x64
 COPY . . 
 
-RUN dotnet publish "manager.angular/DMC.Manager.Angular.csproj" -c Release -o /app/publish  \
+RUN dotnet publish "DMC.Manager.Angular.csproj" -c Release -o /app/publish  \
     --no-restore \
     --runtime alpine-x64 \
     --self-contained true \
