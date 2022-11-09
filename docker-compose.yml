@@ -5,8 +5,8 @@ services:
   #Angular 
   client_angular:
     build:
-      context: ../
-      dockerfile: manager.angular/Dockerfile
+      context: ./
+      dockerfile: Dockerfile
     image: mgr_client_angular:1.32.0
     environment:
       - ASPNETCORE_URLS=http://+:80
