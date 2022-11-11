@@ -12,13 +12,46 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.10" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\dist\assets\**" />
+    <Compile Remove="ClientApp\dist\content\**" />
+    <Compile Remove="ClientApp\dist\src\**" />
+    <Compile Remove="wwwroot\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\dist\assets\**" />
+    <Content Remove="ClientApp\dist\content\**" />
+    <Content Remove="ClientApp\dist\src\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="ClientApp\dist\assets\**" />
+    <EmbeddedResource Remove="ClientApp\dist\content\**" />
+    <EmbeddedResource Remove="ClientApp\dist\src\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\dist\assets\**" />
+    <None Remove="ClientApp\dist\content\**" />
+    <None Remove="ClientApp\dist\src\**" />
+    <None Remove="wwwroot\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\assets\favicon.ico" />
+    <None Remove="ClientApp\src\favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\src\favicon.ico">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\content\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
