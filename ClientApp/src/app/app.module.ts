@@ -1,4 +1,5 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { environment } from './../environments/environment';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -58,8 +59,8 @@ export function tokenGetter(): string {
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              isDevMode() ? '682199222122-r2sc76p2ma6r2k764eijcra6b180jrsk.apps.googleusercontent.com' :
-                          '688275635865-agqjf74i6ojvsf98icre7r03vj6higp6.apps.googleusercontent.com'
+              !environment.production   ? '682199222122-r2sc76p2ma6r2k764eijcra6b180jrsk.apps.googleusercontent.com' :
+                                          '688275635865-agqjf74i6ojvsf98icre7r03vj6higp6.apps.googleusercontent.com'
             )
           }
         ],

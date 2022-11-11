@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 44485",
     "build": "ng build",
+    "build:ssr": "ng run DMC:server:dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
