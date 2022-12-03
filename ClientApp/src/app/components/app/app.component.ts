@@ -5,7 +5,11 @@ import { ConfigurationService } from '../../services/shared/configuration.servic
 import { NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { SnackbarService } from '../../services/shared/snackbar.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
-import { finalize } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
+import { GoogleLoginProvider, SocialUser } from '@abacritt/angularx-social-login';
+import { HttpHeaderService } from '../../services/shared/http.header.service';
+import { HttpClient } from '@angular/common/http';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -15,13 +19,18 @@ import { finalize } from 'rxjs';
 
 export class AppComponent implements OnInit {
 
+  socialAthServiceSubscription: Subscription;
+
   constructor(
     public rs: LangService,
-    public userAuthService: UserAuthService,
     private configurationService: ConfigurationService,
     private router: Router,
     private snackService: SnackbarService,
-    private authService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private userAuthService: UserAuthService,
+    private httpHeaderService: HttpHeaderService,
+    private http: HttpClient,
+    private userService: UserService
   ) {
     console.log("App.constructor");
 
@@ -40,10 +49,53 @@ export class AppComponent implements OnInit {
     });
   }
 
-
-
   ngOnInit(): void {
+    try {
+
+      //on success
+      this.socialAthServiceSubscription = this.socialAuthService.authState.subscribe((userData: SocialUser) => {
+
+        this.userAuthService.addTokens(userData.idToken, "");
+
+        const jsonContentTypeHeader = this.httpHeaderService.jsonContentType();
+
+        //this will return user data from google. What you need is a user token which you will send it to the server
+        this.http.post("/api/identity/auth/google", JSON.stringify(userData), { headers: jsonContentTypeHeader })
+          .pipe(finalize(() => {/* this.isLoading = false; */}))
+          .subscribe((result: any) => {
+
+            console.debug("google login");
+
+            localStorage.setItem("SocialLoginId", "google");
+            localStorage.setItem("token", result.token);
+            localStorage.setItem("tokenId", result.tokenId);
+
+            this.userService.getInfo()
+              .pipe(finalize(() => { }/*this.isLoading = false*/ ))
+              .subscribe(r => {
+
+                //this.close();
+                this.router.navigate(['/devices'])
+
+              }, (error) => {
+                this.snackService.Error(error);
+              })
+          });
+      });
+
+    } catch (error) {
+      //this.isLoading = false;
+      if (error.error !== "popup_closed_by_user") {
+        this.snackService.Error(error);
       }
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.socialAthServiceSubscription) {
+      this.socialAthServiceSubscription.unsubscribe();
+    }
+  }
 
   logout() {
     console.log("DeviceNavRightMenuComponent.logout() ...");

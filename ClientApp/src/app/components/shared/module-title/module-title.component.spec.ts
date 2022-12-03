@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../../../../node_modules/@types/jasmine/index.d.ts" />
+/// <reference path="../../../../../../node_modules/@types/jasmine/index.d.ts" />
 import { TestBed, ComponentFixture, ComponentFixtureAutoDetect, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from "@angular/platform-browser";
 import { ModuleTitleComponent } from './module-title.component';

@@ -30,7 +30,8 @@ export class UserAuthService {
     private router: Router,
     private userAuthConfiguration: UserAuthConfiguration,
     private httpHeaderService: HttpHeaderService,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private authService: SocialAuthService
 
   ) {
     this.requireLoginSubject = new Subject<boolean>();
@@ -194,6 +195,8 @@ export class UserAuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('userInfo');
+
+    this.authService.signOut();
 
     this.returnNavigate();
     console.debug("subLogout after returnNavigate()");
