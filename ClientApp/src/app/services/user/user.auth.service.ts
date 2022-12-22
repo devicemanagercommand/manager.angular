@@ -130,9 +130,10 @@ export class UserAuthService {
         .set('refresh_token', refToken);
 
       console.debug(`user.auth.service.refreshToken() tokenEndpoin = ${this.userAuthConfiguration.tokenEndpoint}`)
-      return this.http.post(this.userAuthConfiguration.tokenEndpoint, body.toString(), { headers: headers })
+      return this.http.post(this.userAuthConfiguration.tokenEndpoint, body.toString(), { headers: headers });
     }
-    else if (socialLoginId === "google") {
+    else if (socialLoginId === "google")
+    {
       this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID).catch(
         err => {
           this.logout();
@@ -157,12 +158,12 @@ export class UserAuthService {
               if (!this.loggedIn()) {
                 this.logout();
               }
+            }, (e) => {
+              console.debug(`http.auth.service.get, error ${e.message}`);
+              console.error(e);
+              this.refreshTokenErrorHandler(e);
             });
         }
-      }, (e) => {
-        console.debug(`http.auth.service.get, error ${e.message}`);
-        console.error(e);
-        this.refreshTokenErrorHandler(e);
       });
   }
 
