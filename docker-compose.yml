@@ -7,7 +7,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: mgr_client_angular:1.32.2
+    image: mgr_client_angular:1.32.3
     environment:
       - ASPNETCORE_URLS=http://+:80
     ports:
