@@ -60,7 +60,7 @@ export function tokenGetter(): string {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
               !environment.production   ? '682199222122-r2sc76p2ma6r2k764eijcra6b180jrsk.apps.googleusercontent.com' :
-                                          '688275635865-agqjf74i6ojvsf98icre7r03vj6higp6.apps.googleusercontent.com'
+                                          '987106900255-js57hcs5j0857dqsdmuu84o49d2lh6s0.apps.googleusercontent.com'
               )
           }
         ],
