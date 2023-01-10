@@ -30,7 +30,8 @@ export class UserAuthService {
     private router: Router,
     private userAuthConfiguration: UserAuthConfiguration,
     private httpHeaderService: HttpHeaderService,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private authService: SocialAuthService
 
   ) {
     this.requireLoginSubject = new Subject<boolean>();
@@ -129,10 +130,15 @@ export class UserAuthService {
         .set('refresh_token', refToken);
 
       console.debug(`user.auth.service.refreshToken() tokenEndpoin = ${this.userAuthConfiguration.tokenEndpoint}`)
-      return this.http.post(this.userAuthConfiguration.tokenEndpoint, body.toString(), { headers: headers })
+      return this.http.post(this.userAuthConfiguration.tokenEndpoint, body.toString(), { headers: headers });
     }
-    else if (socialLoginId === "google") {
-      this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+    else if (socialLoginId === "google")
+    {
+      this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID).catch(
+        err => {
+          this.logout();
+        }
+      );
     }
   }
 
@@ -152,12 +158,12 @@ export class UserAuthService {
               if (!this.loggedIn()) {
                 this.logout();
               }
+            }, (e) => {
+              console.debug(`http.auth.service.get, error ${e.message}`);
+              console.error(e);
+              this.refreshTokenErrorHandler(e);
             });
         }
-      }, (e) => {
-        console.debug(`http.auth.service.get, error ${e.message}`);
-        console.error(e);
-        this.refreshTokenErrorHandler(e);
       });
   }
 
@@ -190,6 +196,8 @@ export class UserAuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('userInfo');
+
+    this.authService.signOut();
 
     this.returnNavigate();
     console.debug("subLogout after returnNavigate()");

@@ -35,7 +35,7 @@ export class DeviceService {
   list(): Observable<DeviceModel[]> {
     console.log("device.service.list")
     if (!this.devices) {
-      return this.httpAuth.get("/api/device/device/list").pipe(map((devicesDTO: DeviceModel[]) => {
+      return this.httpAuth.post("/api/device/device/list", null).pipe(map((devicesDTO: DeviceModel[]) => {
         this.devices = new Array<DeviceModel>();
 
         for (const deviceDTO of devicesDTO) {

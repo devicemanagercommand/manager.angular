@@ -11,7 +11,6 @@ import { finalize, timeout } from 'rxjs/operators'
 import { UserService } from '../../../services/user/user.service';
 import { TriggerHelper } from '../../../services/shared/helper.service';
 import { MessageService } from '../../../services/shared/message.service';
-import { GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { HttpHeaderService } from '../../../services/shared/http.header.service';
 import { ConfigurationService } from '../../../services/shared/configuration.service';
 import { SnackbarService } from '../../../services/shared/snackbar.service';
@@ -26,7 +25,7 @@ import { SnackbarService } from '../../../services/shared/snackbar.service';
   animations: [TriggerHelper.opacityPageWithNav("routeAnimation")]
 })
 
-export class LoginComponent implements AfterViewInit, OnDestroy, OnInit {
+export class LoginComponent implements AfterViewInit {
   requireCaptcha: boolean;
   public model: Login;
   isLoading: boolean;
@@ -53,7 +52,6 @@ export class LoginComponent implements AfterViewInit, OnDestroy, OnInit {
     public modalService: BsModalService,
     private userService: UserService,
     public serviceMessage: MessageService,
-    public socialAuthService: SocialAuthService,
     public httpHeaderService: HttpHeaderService,
     public configurationService: ConfigurationService,
     public snackService: SnackbarService
@@ -74,49 +72,8 @@ export class LoginComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.model = new Login();
   }
-  ngOnInit(): void {
-    try {
 
-      //on success
-      this.socialAuthService.authState.subscribe((userData: SocialUser) => {
 
-        this.userAuthSerivce.addTokens(userData.idToken, "");
-
-        const jsonContentTypeHeader = this.httpHeaderService.jsonContentType();
-
-        //this will return user data from google. What you need is a user token which you will send it to the server
-        this.http.post("/api/identity/auth/google", JSON.stringify(userData), { headers: jsonContentTypeHeader })
-          .pipe(finalize(() => { this.isLoading = false; }))
-          .subscribe((result: any) => {
-
-            console.debug("google login");
-
-            localStorage.setItem("SocialLoginId", "google");
-            localStorage.setItem("token", result.token);
-            localStorage.setItem("tokenId", result.tokenId);
-
-            this.userService.getInfo()
-              .pipe(finalize(() => this.isLoading = false))
-              .subscribe(r => {
-
-                this.close();
-                this.router.navigate(['/devices'])
-
-              }, (error) => {
-                this.snackService.Error(error);
-              })
-          });
-      });
-
-    } catch (error) {
-      this.isLoading = false;
-      if (error.error !== "popup_closed_by_user") {
-        this.snackService.Error(error);
-      }
-    }
-  }
-
-  ngOnDestroy(): void { }
 
   //DMC Login
   login() {

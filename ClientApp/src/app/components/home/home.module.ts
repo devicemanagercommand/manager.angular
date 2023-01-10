@@ -49,22 +49,7 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
     SocialLoginModule
   ],
   providers: [
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              isDevMode ? '682199222122-r2sc76p2ma6r2k764eijcra6b180jrsk.apps.googleusercontent.com':
-                          '688275635865-agqjf74i6ojvsf98icre7r03vj6higp6.apps.googleusercontent.com'
-            )
-          }
-        ]
-      } as SocialAuthServiceConfig
-    }
-  ],
+     ],
   exports: [RouterModule]
 
 })

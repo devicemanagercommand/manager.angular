@@ -1,4 +1,5 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { environment } from './../environments/environment';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -17,7 +18,6 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from './components/shared/shared.module';
 
 export function tokenGetter(): string {
@@ -59,9 +59,9 @@ export function tokenGetter(): string {
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              isDevMode() ? '682199222122-r2sc76p2ma6r2k764eijcra6b180jrsk.apps.googleusercontent.com' :
-                          '688275635865-agqjf74i6ojvsf98icre7r03vj6higp6.apps.googleusercontent.com'
-            )
+              !environment.production   ? '682199222122-r2sc76p2ma6r2k764eijcra6b180jrsk.apps.googleusercontent.com' :
+                                          '987106900255-js57hcs5j0857dqsdmuu84o49d2lh6s0.apps.googleusercontent.com'
+              )
           }
         ],
         onError: (err) => {

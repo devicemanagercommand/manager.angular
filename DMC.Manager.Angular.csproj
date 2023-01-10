@@ -2,67 +2,56 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
-    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-
-    <!-- Set this to true if you enable server-side prerendering -->
-    <!--<BuildServerSideRenderer>false</BuildServerSideRenderer>-->
-    <Configurations>Debug;Release;Staging;Testing;Debug_Manager</Configurations>
-    <UserSecretsId>d39d4886-ba5b-4457-bc96-906e9c4adbf9</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Staging|AnyCPU'"> 
-    <DefineConstants>TRACE;Staging</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Testing|AnyCPU'">
-    <DefineConstants>TRACE;TESTING</DefineConstants>
+    <SpaProxyServerUrl>http://localhost:44485</SpaProxyServerUrl>
+    <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.6" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.16.1" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.10" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="bin\**" />
-    <Compile Remove="log\**" />
+    <Compile Remove="ClientApp\dist\assets\**" />
+    <Compile Remove="ClientApp\dist\content\**" />
+    <Compile Remove="ClientApp\dist\src\**" />
+    <Compile Remove="wwwroot\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="bin\**" />
+    <Content Remove="ClientApp\dist\assets\**" />
+    <Content Remove="ClientApp\dist\content\**" />
+    <Content Remove="ClientApp\dist\src\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="ClientApp\dist\assets\**" />
+    <EmbeddedResource Remove="ClientApp\dist\content\**" />
+    <EmbeddedResource Remove="ClientApp\dist\src\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\dist\assets\**" />
+    <None Remove="ClientApp\dist\content\**" />
+    <None Remove="ClientApp\dist\src\**" />
+    <None Remove="wwwroot\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="bin\**" />
-    <EmbeddedResource Remove="ClientApp\.angular\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\components\shared\modules\**" />
-    <EmbeddedResource Remove="log\**" />
-    <None Remove="bin\**" />
-    <None Remove="ClientApp\.angular\**" />
-    <None Remove="ClientApp\src\app\components\shared\modules\**" />
-    <None Remove="log\**" />
+    <None Remove="ClientApp\src\assets\favicon.ico" />
+    <None Remove="ClientApp\src\favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="ClientApp\src\favicon.ico">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="ClientApp\src\content\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -74,22 +63,20 @@
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
   </Target>
- 
+
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --configuration 'production'" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --configuration 'production'" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --configuration production" />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
-      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
-
 </Project>
