@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMC.Manager.Angular", "DMC.Manager.Angular.csproj", "{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_Manager|Any CPU = Debug_Manager|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Staging|Any CPU = Staging|Any CPU
+		Testing|Any CPU = Testing|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Debug_Manager|Any CPU.ActiveCfg = Debug_Manager|Any CPU
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Debug_Manager|Any CPU.Build.0 = Debug_Manager|Any CPU
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Staging|Any CPU.Build.0 = Staging|Any CPU
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Testing|Any CPU.ActiveCfg = Testing|Any CPU
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Testing|Any CPU.Build.0 = Testing|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F7D9621-2C97-4E12-8FED-9E0C94D6627B}
+	EndGlobalSection
+EndGlobal
