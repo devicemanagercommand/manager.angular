@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "DMC.Manager.Angular": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:44485"
+    }
+  }
+}
