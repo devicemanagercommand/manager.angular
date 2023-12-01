@@ -42,6 +42,10 @@ export class UserAuthService {
   }
 
   isUserAuthenticated() {
+    if (this.isDesign()) {
+      return false;
+    }
+
     if (this.loggedIn()) {
       this.requireLoginSubject.next(false);
       return true;
@@ -66,11 +70,22 @@ export class UserAuthService {
     return this.http.post(this.userAuthConfiguration.tokenEndpoint, params.toString(), { headers: headers })
       .pipe(
         map((token: any) => {
+          
+          this.setIsDesign(token.isDesign);
           this.addTokens(token.access_token, token.refresh_token);
           return token;
         }));
 
   }
+
+  setIsDesign(isDesign: boolean) :void {
+    localStorage.setItem('isDesign', isDesign ? "true" : "false");
+  }
+
+  isDesign(): boolean {
+    return localStorage.getItem('isDesign') == "true";
+  }
+
 
   loggedIn(): boolean {
     if (localStorage.getItem("access_token"))
@@ -113,37 +128,51 @@ export class UserAuthService {
   }
 
   refreshToken() {
-    const socialLoginId = localStorage.getItem("SocialLoginId");
+    if (!this.isDesign()) {
+      const socialLoginId = localStorage.getItem("SocialLoginId");
 
-    if (socialLoginId === "dmc") {
+      if (socialLoginId === "dmc") {
 
-      console.log("UserAuthService.refreshToken()");
+        console.log("UserAuthService.refreshToken()");
 
-      const refToken = localStorage.getItem('refresh_token');
-      //let refTokenId = this.jwtHelper.decodeToken(refToken).refreshTokenId;
-      const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
-      //let options = new RequestOptions({ headers: headers });
-      const body = new HttpParams()
-        .set('client_id', this.userAuthConfiguration.clientId)
-        .set('client_secret', this.userAuthConfiguration.clientSecret)
-        .set('grant_type', 'refresh_token')
-        .set('refresh_token', refToken);
+        const refToken = localStorage.getItem('refresh_token');
+        //let refTokenId = this.jwtHelper.decodeToken(refToken).refreshTokenId;
+        const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        //let options = new RequestOptions({ headers: headers });
+        const body = new HttpParams()
+          .set('client_id', this.userAuthConfiguration.clientId)
+          .set('client_secret', this.userAuthConfiguration.clientSecret)
+          .set('grant_type', 'refresh_token')
+          .set('refresh_token', refToken);
 
-      console.debug(`user.auth.service.refreshToken() tokenEndpoin = ${this.userAuthConfiguration.tokenEndpoint}`)
-      return this.http.post(this.userAuthConfiguration.tokenEndpoint, body.toString(), { headers: headers });
-    }
-    else if (socialLoginId === "google")
-    {
-      this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID).catch(
-        err => {
-          this.logout();
-        }
-      );
+        console.debug(`user.auth.service.refreshToken() tokenEndpoin = ${this.userAuthConfiguration.tokenEndpoint}`)
+
+        this.http.post(this.userAuthConfiguration.tokenEndpoint, body.toString(), { headers: headers })
+          .subscribe((data) => {
+            this.refreshTokenSuccessHandler(data);
+
+            if (!this.loggedIn()) {
+              this.logout();
+            }
+          }, (e) => {
+            console.debug(`http.auth.service.get, error ${e.message}`);
+            console.error(e);
+            this.refreshTokenErrorHandler(e);
+          });
+
+        ;
+      }
+      else if (socialLoginId === "google") {
+        this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID).catch(
+          err => {
+            this.logout();
+          }
+        );
+      }
     }
   }
 
-  refreshTokenRequireRefreshTimer()
-  {
+  refreshTokenRequireRefreshTimer() {
     this.refreshTokenRequireRefreshTimerSubscription = timer(5000, 5000).subscribe(
       () => {
 
@@ -151,19 +180,9 @@ export class UserAuthService {
         console.debug("refreshToken = " + refreshToken);
 
         if (refreshToken) {
-          this.refreshToken()
-            .subscribe((data) => {
-              this.refreshTokenSuccessHandler(data);
-
-              if (!this.loggedIn()) {
-                this.logout();
-              }
-            }, (e) => {
-              console.debug(`http.auth.service.get, error ${e.message}`);
-              console.error(e);
-              this.refreshTokenErrorHandler(e);
-            });
+          this.refreshToken();
         }
+
       });
   }
 

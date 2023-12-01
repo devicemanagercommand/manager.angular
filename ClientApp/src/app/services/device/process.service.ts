@@ -10,6 +10,7 @@ import { ComponentPipeService, PipeMessage } from "../shared/component.pipe.serv
 import { CommandHistoryService, StoryCommandDTO } from "../shared/command-history.service";
 import { DeviceModel } from 'src/app/models/device/device.model';
 import { map } from 'rxjs/operators';
+import { UserAuthService } from '../user/user.auth.service';
 
 
 @Injectable({
@@ -36,6 +37,7 @@ export class ProcessService {
     private cookieService: CookieService,
     private pipeMessageCompoenent: ComponentPipeService,
     public historyCommandService: CommandHistoryService,
+    public userAuth: UserAuthService
   ) {
     console.log("ProcessService.constructor");
   }
@@ -44,7 +46,9 @@ export class ProcessService {
     console.log("ProcessService.init()");
     this.processCommand = new ProcessCommandDTO();
 
-    this.historyCommandService.init(deviceId, userContractId);
+    if (!this.userAuth.isDesign()) {
+      this.historyCommandService.init(deviceId, userContractId);
+    }
 
     const maxLines = this.cookieService.get("processOptions.maxLines");
     this.processOptions.maxLines = maxLines ? +maxLines : 10000;

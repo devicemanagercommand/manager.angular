@@ -5,8 +5,11 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMC.Manager.Angular", "DMC.Manager.Angular.csproj", "{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMC.Shared.Lang", "..\DMC.Shared\DMC.Shared.Lang\DMC.Shared.Lang.csproj", "{532DCCEE-B2D6-4072-B5E4-2E812167A556}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_Device|Any CPU = Debug_Device|Any CPU
 		Debug_Manager|Any CPU = Debug_Manager|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -14,6 +17,8 @@ Global
 		Testing|Any CPU = Testing|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Debug_Device|Any CPU.ActiveCfg = Debug_Manager|Any CPU
+		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Debug_Device|Any CPU.Build.0 = Debug_Manager|Any CPU
 		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Debug_Manager|Any CPU.ActiveCfg = Debug_Manager|Any CPU
 		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Debug_Manager|Any CPU.Build.0 = Debug_Manager|Any CPU
 		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -24,6 +29,18 @@ Global
 		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Staging|Any CPU.Build.0 = Staging|Any CPU
 		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Testing|Any CPU.ActiveCfg = Testing|Any CPU
 		{4421A8A5-2DBF-45A1-A4F7-0B9B9DC812FA}.Testing|Any CPU.Build.0 = Testing|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Debug_Device|Any CPU.ActiveCfg = Debug_Device|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Debug_Device|Any CPU.Build.0 = Debug_Device|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Debug_Manager|Any CPU.ActiveCfg = Debug_Manager|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Debug_Manager|Any CPU.Build.0 = Debug_Manager|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Staging|Any CPU.Build.0 = Staging|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Testing|Any CPU.ActiveCfg = Testing|Any CPU
+		{532DCCEE-B2D6-4072-B5E4-2E812167A556}.Testing|Any CPU.Build.0 = Testing|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

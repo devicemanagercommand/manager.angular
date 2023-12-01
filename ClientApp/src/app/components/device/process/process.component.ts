@@ -15,6 +15,7 @@ import { NgScrollbar } from 'ngx-scrollbar';
 import { finalize } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { ProcessOptionsComponent } from './process.options.component';
+import { UserAuthService } from '../../../services/user/user.auth.service';
 
 @Component({
   host: {
@@ -61,6 +62,7 @@ export class ProcessComponent implements OnInit, OnDestroy, AfterViewChecked {
     public renderer: Renderer2,
     public helper: HelperService,
     public dialog: MatDialog,
+    public userAuth: UserAuthService
   ) {
     console.log("ProcessComponent.constructor()");
     //this.processService.activeDevice.processModel.terminalLines = new Array<TerminalLine>();
@@ -137,78 +139,86 @@ export class ProcessComponent implements OnInit, OnDestroy, AfterViewChecked {
           }
 
 
-          this.keepAliveTimerCounter = 0;
-          this.keepAliveTimerSubscription = this.deviceService.checkStatus_Timer()
-            .subscribe(rsp => {
-              if (this.keepAliveTimerCounter < 0) {
-                this.keepAliveTimerCounter = 0;
-              }
-              this.keepAliveTimerCounter++;
+         
 
-              if (!this.keepAliveTimerActive
-                && this.processService.processCommand
-                && ((this.deviceState === "Connected" && (this.keepAliveTimerCounter % 5) === 0)
-                  || this.deviceState !== "Connected")) {
+            this.keepAliveTimerCounter = 0;
+            this.keepAliveTimerSubscription = this.deviceService.checkStatus_Timer()
+              .subscribe(rsp => {
+                if (this.keepAliveTimerCounter < 0) {
+                  this.keepAliveTimerCounter = 0;
+                }
+                this.keepAliveTimerCounter++;
 
-                this.keepAliveTimerActive = true;
-
-                if (this.processService
+                if (!this.keepAliveTimerActive
                   && this.processService.processCommand
-                  && this.processService.processCommand.deviceId) {
+                  && ((this.deviceState === "Connected" && (this.keepAliveTimerCounter % 5) === 0)
+                    || this.deviceState !== "Connected")) {
 
-                  const keepAliveRequest = new KeepAliveRequestDTO();
-                  keepAliveRequest.CommandId = null;
-                  keepAliveRequest.DeviceId = this.processService.processCommand.deviceId;
-                  keepAliveRequest.UserContractId = this.deviceService.activeDevice.userContractId;
-                  keepAliveRequest.KeepAlive = true;
+                  this.keepAliveTimerActive = true;
 
-                  this.deviceService.keepAlive(keepAliveRequest)
-                    .pipe(
-                      finalize(() => this.keepAliveTimerActive = false)
-                    )
-                    .subscribe(kaRsp => {
-                      const keepAliveResponse = kaRsp;
-                      this.deviceState = keepAliveResponse.hasResponseFromDevice ? "Connected" : "Disconecting";
+                  if (this.processService
+                    && this.processService.processCommand
+                    && this.processService.processCommand.deviceId) {
 
-                      if (this.deviceState == "Connected") {
-                        this.isLoading = false;
-                        if (!this.invokerService.isInitialized) {
-                          this.invokerInitSubscription = this.invokerService.init(keepAliveRequest.DeviceId, keepAliveRequest.UserContractId).subscribe(
-                            rsp => { }
-                            , err => {
-                              if ("warning" == err.type) {
-                                this.processService.AddLine(new TerminalLine(err.message, AlertType.Warning));
+                    const keepAliveRequest = new KeepAliveRequestDTO();
+                    keepAliveRequest.CommandId = null;
+                    keepAliveRequest.DeviceId = this.processService.processCommand.deviceId;
+                    keepAliveRequest.UserContractId = this.deviceService.activeDevice.userContractId;
+                    keepAliveRequest.KeepAlive = true;
+
+                    this.deviceService.keepAlive(keepAliveRequest)
+                      .pipe(
+                        finalize(() => this.keepAliveTimerActive = false)
+                      )
+                      .subscribe(kaRsp => {
+                        const keepAliveResponse = kaRsp;
+                        this.deviceState = keepAliveResponse.hasResponseFromDevice ? "Connected" : "Disconecting";
+
+                        if (this.deviceState == "Connected") {
+                          this.isLoading = false;
+                          if (!this.invokerService.isInitialized) {
+                            this.invokerInitSubscription = this.invokerService.init(keepAliveRequest.DeviceId, keepAliveRequest.UserContractId).subscribe(
+                              rsp => { }
+                              , err => {
+                                if ("warning" == err.type) {
+                                  this.processService.AddLine(new TerminalLine(err.message, AlertType.Warning));
+                                }
+                                else {
+                                  this.processService.AddLine(new TerminalLine(err.message, AlertType.Danger));
+                                }
                               }
-                              else {
-                                this.processService.AddLine(new TerminalLine(err.message, AlertType.Danger));
-                              }
-                            }
-                          );///Need unsuscribe to work
+                            );///Need unsuscribe to work
+                          }
                         }
-                      }
 
-                    }, (err) => {
-                      console.error("Error keepalive, see the next line:")
-                      console.error(err);
-                      if (err.status != 200) {
-                        this.processService.showError(err);
-                        this.scrollToBottom();
-                        this.deviceState = "Disconnecting";
-                      }
-                    });
+                      }, (err) => {
+                        console.error("Error keepalive, see the next line:")
+                        console.error(err);
+                        if (err.status != 200) {
+                          this.processService.showError(err);
+                          this.scrollToBottom();
+                          this.deviceState = "Disconnecting";
+                        }
+                      });
+                  }
+                  else {
+                    this.keepAliveTimerActive = false;
+                  }
                 }
-                else {
-                  this.keepAliveTimerActive = false;
+              });
+
+
+            this.processService.init(deviceId, userContractId).subscribe(
+              o => {
+                ///activeDevice keep the data in memory in DeviceService
+                if (this.userAuth.isDesign()) {
+
+                  this.processService.processCommand.command = "dir";
+                  this.submit();
+
                 }
               }
-            });
-
-          this.processService.init(deviceId, userContractId).subscribe(
-            o => {
-              ///activeDevice keep the data in memory in DeviceService
-            }
-          );
-
+            );
 
         });
 

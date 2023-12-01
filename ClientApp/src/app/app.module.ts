@@ -36,7 +36,6 @@ export function tokenGetter(): string {
     HttpClientModule,
     SharedModule,
     RouterModule.forRoot([
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
       {
         path: 'devices',
         loadChildren: () => import('./components/device/devices.module').then(m => m.DeviceModule),
@@ -44,6 +43,9 @@ export function tokenGetter(): string {
       {
         path: 'home',
         loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule),
+      },
+      {
+        path: '', redirectTo: 'home', pathMatch: 'full'
       }
     ], { relativeLinkResolution: 'legacy' })
   ],

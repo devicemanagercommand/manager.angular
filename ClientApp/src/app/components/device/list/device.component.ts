@@ -17,6 +17,7 @@ import { ConfigurationService } from '../../../services/shared/configuration.ser
 import { SocketService } from '../../../services/shared/socket.service';
 import * as moment from 'moment';
 import { DeviceInfoDTO } from '../../../services/device/deviceInfo.service';
+import { UserAuthService } from '../../../services/user/user.auth.service';
 
 @Component({
   host: {
@@ -62,6 +63,7 @@ export class DeviceComponent implements OnInit, OnDestroy {
     public ngZone: NgZone,
     public cnf: ConfigurationService,
     public socketService: SocketService,
+    public userAuth: UserAuthService
   ) {
     console.log("DeviceComponent.Constructor()");
   }
@@ -107,18 +109,20 @@ export class DeviceComponent implements OnInit, OnDestroy {
           }
 
           //Call when startConnection
-          this.socketService.connectionEstablished.subscribe(() => {
-            this.initSocketService();
-          });
+          if (!this.userAuth.isDesign()) {
+            this.socketService.connectionEstablished.subscribe(() => {
+              this.initSocketService();
+            });
 
-          await this.socketService.startConnection();
+            await this.socketService.startConnection();
 
-          this.socketService.onReconnecting(() => {
-          });
+            this.socketService.onReconnecting(() => {
+            });
 
-          this.socketService.onReconnected(() => {
-            this.initSocketService();
-          });
+            this.socketService.onReconnected(() => {
+              this.initSocketService();
+            });
+          }
 
           this.checkStatusTimerSubscription = this.deviceService.checkStatus_Timer().subscribe(() => {
             this.devices.forEach((device: DeviceModel) => {
@@ -145,16 +149,7 @@ export class DeviceComponent implements OnInit, OnDestroy {
 
         }, (err) => { this.alertPanel = this.messageService.Error(err); });
 
-        this.userService.getInfo().subscribe(
-          o => this.userInfo = o,
-          () => this.alertPanel = new AlertPanel(this.rs.Resource("InfoWithoutDevices"), AlertType.Warning)
-        );
-
-
-
       });
-
-
 
     });
   }

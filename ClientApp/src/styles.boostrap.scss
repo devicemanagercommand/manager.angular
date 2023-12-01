@@ -176,6 +176,10 @@ body {
   background-color: $background-accent !important;
   min-height: 36px !important;
   margin-bottom: 5px !important;
+  transition: all 0.5s;
+  z-index: 997;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .navbar-nav.navbar-center {

@@ -60,7 +60,7 @@ export class UserService {
   }
 
   getInfo(): Observable<UserInfoModel> {
-    console.log("sending body:");
+    console.log("UserService.GetInfo()");
 
     return this.httpAuth.post<UserInfoModel>("/api/identity/user/info", null)
       .pipe(
