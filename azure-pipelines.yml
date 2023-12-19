@@ -40,20 +40,20 @@ steps:
     targetType: 'inline'
     script: |
       echo "CREATING IMAGE"
-      Write-Host "$env:SOURCE_DIRECTORY = $(Build.SourcesDirectory)
+      Write-Host "${env:SOURCE_DIRECTORY} = $(Build.SourcesDirectory)
 
 
       cd manager.angular
       ./docker-compose-build.ps1
 
-      mkdir -p "$env:SOURCE_DIRECTORY/images"
+      mkdir -p "${env:SOURCE_DIRECTORY}/images"
 
       docker save -o client_angular.tar mgr_client_angular:$(cat docker-compose.yml  | grep "mgr_client_angular" | awk -F':'  '{print $3}')
 
       echo "LS TARS"
-      mv *.tar "$env:SOURCE_DIRECTORY/images/"
-      mv *.yml "$env:SOURCE_DIRECTORY/images/"
-      ls "$env:SOURCE_DIRECTORY/images/"
+      mv *.tar "${env:SOURCE_DIRECTORY}/images/"
+      mv *.yml "${env:SOURCE_DIRECTORY}/images/"
+      ls "${env:SOURCE_DIRECTORY}/images/"
   env:
     SOURCE_DIRECTORY: $(Build.SourcesDirectory)
 
