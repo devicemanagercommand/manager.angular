@@ -6,15 +6,34 @@
 trigger:
 - master
 
+resources:
+  repositories:
+  - repository: DMCShared # The name used to reference this repository in the checkout step
+    type: bitbucket 
+    endpoint: BitbucketConnection
+    name: devicemanagercommand/dmc.shared
+    ref: $(Build.SourceBranchName)
+
 pool:
   vmImage: 'ubuntu-latest'
 
+workspace:
+  clean: all # what to clean up before the job
+
 steps:
+- checkout: self
+- checkout: DMCShared
+
 - task: CmdLine@2
   inputs:
     script: |
       pwd
       ls
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      mv dmc.shared DMC.Shared
 
 - task: PowerShell@2
   inputs:
@@ -22,7 +41,9 @@ steps:
     script: |
       echo "CREATING IMAGE"
 
+      cd manager.angular
       ./docker-compose-build.ps1
+      cd ..
 
       mkdir -p images
 
