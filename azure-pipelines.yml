@@ -38,8 +38,6 @@ steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    env:
-      SOURCE_DIRECTORY: $(Build.SourcesDirectory)
     script: |
       echo "CREATING IMAGE"
       Write-Host "$env:SOURCE_DIRECTORY = $(Build.SourcesDirectory)
@@ -56,6 +54,8 @@ steps:
       mv *.tar "$env:SOURCE_DIRECTORY/images/"
       mv *.yml "$env:SOURCE_DIRECTORY/images/"
       ls "$env:SOURCE_DIRECTORY/images/"
+  env:
+    SOURCE_DIRECTORY: $(Build.SourcesDirectory)
 
 
 - task: ArchiveFiles@2
