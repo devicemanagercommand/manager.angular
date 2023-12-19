@@ -40,8 +40,6 @@ steps:
     targetType: 'inline'
     script: |
       echo "CREATING IMAGE"
-      Write-Host "${env:SOURCE_DIRECTORY} = $(Build.SourcesDirectory)
-
 
       cd manager.angular
       ./docker-compose-build.ps1
