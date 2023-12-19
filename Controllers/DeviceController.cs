@@ -18,16 +18,12 @@ namespace Angularnet6Tosetemplate.Controllers
     public class DeviceController : ControllerBase
     {
 
-        private readonly ILogger<DeviceController> _logger;
         private readonly IStringLocalizer<Resources> localizer;
 
-        public DeviceController(ILogger<DeviceController> logger,
-            IStringLocalizer<Resources> localizer)
+        public DeviceController(IStringLocalizer<Resources> localizer)
         {
-            _logger = logger;
             this.localizer = localizer;
         }
-
 
         [HttpGet]
         [Route("helper/lang")]

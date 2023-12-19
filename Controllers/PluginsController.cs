@@ -18,16 +18,6 @@ namespace Angularnet6Tosetemplate.Controllers
     public class PluginController : ControllerBase
     {
 
-        private readonly ILogger<DeviceController> _logger;
-        private readonly IStringLocalizer<Resources> localizer;
-
-        public PluginController(ILogger<DeviceController> logger,
-            IStringLocalizer<Resources> localizer)
-        {
-            _logger = logger;
-            this.localizer = localizer;
-        }
-
         [Route("commands/invokers")]
         public string Invokers([FromBody] object device)
         {
